@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 00 — CS & Programming Foundations | AI Engineer Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;
+  --ink2:#2a2a3a;
+  --ink3:#6a6a7a;
+  --ink4:#a0a0b0;
+  --surface:#f8f7f4;
+  --white:#ffffff;
+  --accent:#ff4d1c;
+  --accent2:#1a0aff;
+  --green:#0a8a5e;
+  --gold:#c87c10;
+  --border:rgba(10,10,15,0.1);
+  --border2:rgba(10,10,15,0.06);
+  --code-bg:#0e0e18;
+  --code-surface:#16161f;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--surface);color:var(--ink);line-height:1.6;font-size:16px}
+
+/* ── NAV ── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-logo{font-size:13px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.logo-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
+.nav-module{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:0.06em}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-link{font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:color 0.15s}
+.nav-link:hover{color:var(--ink)}
+
+/* ── HERO ── */
+.module-hero{
+  padding:5rem 2.5rem 4rem;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  background:var(--white);
+}
+.module-hero::before{
+  content:'00';
+  position:absolute;right:-20px;top:-20px;
+  font-size:22rem;font-weight:800;
+  color:rgba(10,10,15,0.03);
+  line-height:1;
+  font-family:'Syne',sans-serif;
+  pointer-events:none;
+  letter-spacing:-0.05em;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:0.1em;
+  color:var(--accent);text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.module-hero h1{
+  font-size:clamp(2.5rem,5vw,4.2rem);
+  font-weight:800;letter-spacing:-0.04em;
+  line-height:1.0;max-width:700px;
+  margin-bottom:1.2rem;
+}
+.module-hero h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.hero-desc{font-size:18px;color:var(--ink2);max-width:600px;line-height:1.7;margin-bottom:2rem;font-weight:400}
+.hero-meta{display:flex;gap:2rem;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:8px}
+.meta-icon{font-size:14px}
+.meta-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink3)}
+
+/* ── LAYOUT ── */
+.page-body{display:flex;gap:0;max-width:1200px;margin:0 auto}
+.sidebar{
+  width:260px;min-width:260px;
+  padding:2rem 1.5rem;
+  position:sticky;top:56px;height:calc(100vh - 56px);
+  overflow-y:auto;
+  border-right:1px solid var(--border);
+  background:var(--white);
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.sidebar-section{margin-bottom:2rem}
+.sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:10px}
+.sidebar-link{
+  display:block;font-size:13px;font-weight:500;
+  color:var(--ink3);text-decoration:none;
+  padding:5px 10px;border-radius:4px;
+  margin-bottom:2px;
+  transition:all 0.15s;
+  border-left:2px solid transparent;
+}
+.sidebar-link:hover{color:var(--ink);background:var(--surface);border-left-color:var(--accent)}
+.sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:rgba(255,77,28,0.05)}
+.sidebar-progress{
+  background:var(--surface);border-radius:4px;padding:12px;margin-top:1rem;
+}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s}
+.prog-count{font-size:11px;color:var(--ink3);margin-top:4px;text-align:right}
+
+.main-content{flex:1;padding:0;max-width:800px}
+
+/* ── SECTIONS ── */
+.lesson-section{
+  padding:3rem 3rem;
+  border-bottom:1px solid var(--border2);
+}
+.lesson-section:last-child{border-bottom:none}
+
+.section-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border2);max-width:60px}
+
+h2.section-title{
+  font-size:1.9rem;font-weight:800;letter-spacing:-0.03em;
+  margin-bottom:0.8rem;line-height:1.15;
+}
+h2.section-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.section-intro{font-size:16px;color:var(--ink2);line-height:1.75;margin-bottom:2rem}
+
+h3.topic-title{
+  font-size:1.1rem;font-weight:700;letter-spacing:-0.02em;
+  margin:2rem 0 0.6rem;color:var(--ink);
+  display:flex;align-items:center;gap:8px;
+}
+h3.topic-title::before{
+  content:'';width:4px;height:4px;background:var(--accent);
+  border-radius:50%;flex-shrink:0;
+}
+p.body-text{font-size:15px;color:var(--ink2);line-height:1.8;margin-bottom:1rem}
+
+/* ── CODE BLOCKS ── */
+.code-block{
+  background:var(--code-bg);
+  border-radius:8px;
+  margin:1.5rem 0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.code-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;
+  background:var(--code-surface);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.code-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.04em}
+.code-lang{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:rgba(255,77,28,0.8);letter-spacing:0.06em;text-transform:uppercase;
+}
+.code-block pre{
+  padding:1.4rem 1.6rem;
+  overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;line-height:1.7;
+  color:#c9d1d9;
+}
+.code-block pre::-webkit-scrollbar{height:4px}
+.code-block pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1)}
+/* syntax colors */
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.st{color:#a5d6ff}
+.cm{color:#8b949e;font-style:italic}
+.nm{color:#79c0ff}
+.op{color:#ff7b72}
+.va{color:#ffa657}
+.nu{color:#f0883e}
+.de{color:#79c0ff}
+.bi{color:#ffa657}
+
+/* ── CALLOUTS ── */
+.callout{
+  border-radius:6px;padding:1rem 1.2rem;margin:1.5rem 0;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.callout-info{background:#eef4ff;border-left:3px solid var(--accent2)}
+.callout-tip{background:#eefaf5;border-left:3px solid var(--green)}
+.callout-warn{background:#fff8ee;border-left:3px solid var(--gold)}
+.callout-icon{font-size:16px;margin-top:1px;flex-shrink:0}
+.callout-body{font-size:14px;color:var(--ink2);line-height:1.65}
+.callout-body strong{font-weight:700;color:var(--ink)}
+
+/* ── DSA CARDS ── */
+.dsa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:1.5rem 0}
+.dsa-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:8px;padding:1rem 1.1rem;
+  transition:box-shadow 0.15s;
+}
+.dsa-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.dsa-name{font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:-0.01em}
+.dsa-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:6px}
+.dsa-desc{font-size:12px;color:var(--ink3);line-height:1.5}
+.dsa-when{font-size:11px;color:var(--green);margin-top:6px;font-weight:600}
+
+/* ── COMPLEXITY TABLE ── */
+.complexity-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:13px}
+.complexity-table th{
+  text-align:left;padding:10px 14px;
+  background:var(--code-bg);color:rgba(255,255,255,0.6);
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.06em;font-weight:500;
+}
+.complexity-table td{padding:10px 14px;border-bottom:1px solid var(--border2)}
+.complexity-table tr:last-child td{border-bottom:none}
+.complexity-table tr:hover td{background:rgba(10,10,15,0.02)}
+.badge{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  padding:3px 8px;border-radius:3px;font-weight:500;
+}
+.badge-green{background:#eefaf5;color:var(--green)}
+.badge-gold{background:#fff8ee;color:var(--gold)}
+.badge-red{background:#fff0ee;color:#c0392b}
+.badge-blue{background:#eef4ff;color:var(--accent2)}
+
+/* ── INTERVIEW QUESTIONS ── */
+.interview-section{
+  background:var(--code-bg);
+  padding:3rem;
+  border-top:3px solid var(--accent);
+}
+.interview-header{margin-bottom:2rem}
+.interview-title{
+  font-size:1.8rem;font-weight:800;letter-spacing:-0.03em;
+  color:#ffffff;margin-bottom:0.5rem;
+}
+.interview-subtitle{font-size:14px;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace}
+.q-block{margin-bottom:1.5rem}
+.q-row{
+  display:flex;align-items:flex-start;gap:14px;
+  cursor:pointer;
+  padding:1rem 1.2rem;
+  background:var(--code-surface);
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.05);
+  transition:border-color 0.15s;
+}
+.q-row:hover{border-color:rgba(255,77,28,0.4)}
+.q-row.open{border-color:var(--accent);border-bottom-left-radius:0;border-bottom-right-radius:0}
+.q-num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--accent);min-width:28px;padding-top:2px;
+  font-weight:600;
+}
+.q-text{font-size:14px;font-weight:600;color:#e0e0f0;flex:1;line-height:1.5}
+.q-arrow{
+  font-size:16px;color:rgba(255,255,255,0.3);
+  transition:transform 0.2s;flex-shrink:0;
+  margin-top:1px;
+}
+.q-row.open .q-arrow{transform:rotate(90deg);color:var(--accent)}
+.q-answer{
+  display:none;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,77,28,0.3);
+  border-top:none;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
+  padding:1.2rem 1.4rem;
+}
+.q-answer.visible{display:block}
+.q-answer p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:0.6rem}
+.q-answer p:last-child{margin-bottom:0}
+.q-answer code{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:3px;
+  color:#a5d6ff;
+}
+.q-answer strong{color:rgba(255,255,255,0.85);font-weight:600}
+.q-difficulty{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:2px 7px;border-radius:2px;margin-left:auto;
+  margin-right:8px;flex-shrink:0;
+  align-self:center;
+}
+.diff-easy{background:rgba(10,138,94,0.2);color:#4ade80}
+.diff-med{background:rgba(200,124,16,0.2);color:#fbbf24}
+.diff-hard{background:rgba(192,57,43,0.2);color:#f87171}
+
+/* ── PROJECT CARD ── */
+.project-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  margin:1.5rem 0;
+}
+.project-header{
+  padding:1.2rem 1.5rem;
+  background:var(--ink);
+  display:flex;align-items:center;gap:12px;
+}
+.project-badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  background:var(--accent);color:white;
+  padding:4px 10px;border-radius:2px;letter-spacing:0.06em;
+}
+.project-name{font-size:15px;font-weight:700;color:white;letter-spacing:-0.02em}
+.project-body{padding:1.5rem}
+.project-desc{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:1rem}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.feature-list li{
+  font-size:13px;color:var(--ink2);
+  display:flex;align-items:baseline;gap:8px;
+}
+.feature-list li::before{
+  content:'→';color:var(--accent);font-size:12px;flex-shrink:0;
+}
+
+/* ── ALGO VIZ ── */
+.algo-viz{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:8px;padding:1.5rem;margin:1.5rem 0;
+}
+.algo-viz-title{font-size:13px;font-weight:700;margin-bottom:1rem;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em;font-family:'JetBrains Mono',monospace}
+.array-vis{display:flex;gap:4px;margin:1rem 0;flex-wrap:wrap}
+.arr-cell{
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;
+  border-radius:4px;
+  border:1px solid var(--border);
+  background:var(--surface);
+}
+.arr-cell.highlight{background:rgba(255,77,28,0.1);border-color:var(--accent);color:var(--accent)}
+.arr-cell.found{background:rgba(10,138,94,0.1);border-color:var(--green);color:var(--green)}
+.arr-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);text-align:center;margin-top:3px}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin:1rem 0}
+.checklist li{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:var(--ink2);
+}
+.check-icon{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;flex-shrink:0;
+}
+.check-done{background:rgba(10,138,94,0.12);color:var(--green)}
+.check-todo{background:var(--surface);color:var(--ink4);border:1px solid var(--border)}
+
+/* ── FOOTER ── */
+.module-footer{
+  padding:2.5rem 3rem;
+  border-top:1px solid var(--border);
+  background:var(--white);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-nav{display:flex;gap:12px}
+.footer-btn{
+  padding:11px 22px;border-radius:4px;font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;border:none;
+  text-decoration:none;display:inline-block;
+}
+.btn-next{background:var(--ink);color:white}
+.btn-next:hover{background:var(--accent)}
+.btn-prev{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.progress-pill{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  background:var(--surface);padding:8px 16px;border-radius:20px;
+  color:var(--ink3);border:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo"><span class="logo-dot"></span>AI Engineer Path</a>
+  <span class="nav-module">MODULE 00 · CS & PROGRAMMING FOUNDATIONS</span>
+  <div class="nav-links">
+    <a href="#interview" class="nav-link">Interview Q&amp;A</a>
+    <a href="#projects" class="nav-link">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="module-hero">
+  <div class="hero-tag">Module 00 · Foundation</div>
+  <h1>CS &amp; Programming<br><em>Foundations</em></h1>
+  <p class="hero-desc">The bedrock every AI engineer needs. Variables to algorithms, Big-O to recursion — covered clearly, with no hand-waving.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-icon">⏱</span><span class="meta-text">~15 hours</span></div>
+    <div class="meta-item"><span class="meta-icon">🐍</span><span class="meta-text">Python 3.11+</span></div>
+    <div class="meta-item"><span class="meta-icon">📊</span><span class="meta-text">Beginner → Intermediate</span></div>
+    <div class="meta-item"><span class="meta-icon">🔧</span><span class="meta-text">4 Projects</span></div>
+  </div>
+</div>
+
+<div class="page-body">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Contents</div>
+    <a class="sidebar-link active" href="#variables">1. Variables & Data Types</a>
+    <a class="sidebar-link" href="#control">2. Control Flow</a>
+    <a class="sidebar-link" href="#functions">3. Functions</a>
+    <a class="sidebar-link" href="#oop">4. OOP</a>
+    <a class="sidebar-link" href="#data-structures">5. Data Structures</a>
+    <a class="sidebar-link" href="#algorithms">6. Algorithms</a>
+    <a class="sidebar-link" href="#recursion">7. Recursion</a>
+    <a class="sidebar-link" href="#bigO">8. Big-O & Complexity</a>
+    <a class="sidebar-link" href="#coding-patterns">9. Coding Patterns</a>
+    <a class="sidebar-link" href="#projects">10. Projects</a>
+    <a class="sidebar-link" href="#interview">11. Interview Q&amp;A</a>
+  </div>
+  <div class="sidebar-progress">
+    <div class="prog-label">YOUR PROGRESS</div>
+    <div class="prog-bar"><div class="prog-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="prog-count" id="progressCount">0 / 11 sections</div>
+  </div>
+  <div class="sidebar-section" style="margin-top:1.5rem">
+    <div class="sidebar-label">Tools Needed</div>
+    <a class="sidebar-link" href="#">Python 3.11+</a>
+    <a class="sidebar-link" href="#">VS Code / Cursor</a>
+    <a class="sidebar-link" href="#">Git & GitHub</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+<!-- SECTION 1: VARIABLES -->
+<section class="lesson-section" id="variables">
+  <div class="section-eyebrow">Section 01</div>
+  <h2 class="section-title">Variables &amp; <em>Data Types</em></h2>
+  <p class="section-intro">A variable is a named container for a value. Python is <strong>dynamically typed</strong> — you don't declare types, Python infers them. But as an AI engineer you'll work with typed code constantly, so we'll learn both styles.</p>
+
+  <h3 class="topic-title">Primitive Types</h3>
+  <p class="body-text">Python's four primitive types are the atoms everything else is built from. Understanding their memory footprint matters when you process millions of tokens.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">primitives.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># Integer — whole numbers, no size limit in Python</span>
+token_count = <span class="nu">4096</span>
+batch_size  = <span class="nu">32</span>
+
+<span class="cm"># Float — 64-bit decimal (IEEE 754)</span>
+temperature = <span class="nu">0.7</span>
+top_p       = <span class="nu">0.95</span>
+
+<span class="cm"># String — immutable sequence of Unicode characters</span>
+model_name  = <span class="st">"gpt-4o"</span>
+prompt      = <span class="st">f"Summarise this in {token_count} tokens"</span>  <span class="cm"># f-string</span>
+
+<span class="cm"># Boolean — True or False (note capital T/F)</span>
+is_streaming = <span class="kw">True</span>
+use_cache    = <span class="kw">False</span>
+
+<span class="cm"># Check the type at runtime</span>
+<span class="bi">print</span>(<span class="bi">type</span>(temperature))   <span class="cm"># &lt;class 'float'&gt;</span>
+<span class="bi">print</span>(<span class="bi">isinstance</span>(batch_size, <span class="bi">int</span>))  <span class="cm"># True</span></pre>
+  </div>
+
+  <h3 class="topic-title">Type Hints — Write Code Like a Pro</h3>
+  <p class="body-text">At any production AI company, untyped Python is a code-review failure. Type hints make your intent explicit and enable static analysis tools like <code>mypy</code>.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">type_hints.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">from</span> typing <span class="kw">import</span> Optional, Union, List
+
+<span class="cm"># Annotate variables</span>
+model_name: <span class="bi">str</span> = <span class="st">"claude-3-opus"</span>
+max_tokens: <span class="bi">int</span> = <span class="nu">2048</span>
+temperature: <span class="bi">float</span> = <span class="nu">0.7</span>
+is_enabled: <span class="bi">bool</span> = <span class="kw">True</span>
+
+<span class="cm"># Optional means "this value can be None"</span>
+system_prompt: Optional[<span class="bi">str</span>] = <span class="kw">None</span>
+
+<span class="cm"># Union means "one of these types"</span>
+token_limit: Union[<span class="bi">int</span>, <span class="bi">float</span>] = <span class="nu">4096</span>
+
+<span class="cm"># A function with full type annotations</span>
+<span class="kw">def</span> <span class="fn">call_model</span>(
+    prompt: <span class="bi">str</span>,
+    model: <span class="bi">str</span> = <span class="st">"gpt-4o"</span>,
+    temperature: <span class="bi">float</span> = <span class="nu">0.7</span>,
+    max_tokens: Optional[<span class="bi">int</span>] = <span class="kw">None</span>
+) -> <span class="bi">str</span>:
+    <span class="st">"""Returns the model's response as a string."""</span>
+    ...  <span class="cm"># implementation here</span></pre>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>AI Engineer habit:</strong> Always use type hints. When you're building an API that handles user data, inference parameters, or agent state — type hints prevent an entire category of runtime bugs. Every production codebase at Anthropic, OpenAI, Google DeepMind uses them.</div>
+  </div>
+
+  <h3 class="topic-title">Mutable vs Immutable</h3>
+  <p class="body-text">This concept trips up beginners and causes silent bugs in AI systems. An <strong>immutable</strong> object cannot be changed after creation. A <strong>mutable</strong> one can.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">mutability.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># IMMUTABLE — strings, ints, floats, tuples</span>
+name = <span class="st">"gpt-4"</span>
+name[<span class="nu">0</span>] = <span class="st">"G"</span>   <span class="cm"># ❌ TypeError: str doesn't support item assignment</span>
+
+<span class="cm"># Creating a new string is fine</span>
+name = name.replace(<span class="st">"gpt"</span>, <span class="st">"GPT"</span>)   <span class="cm"># ✅ new object, "GPT-4"</span>
+
+<span class="cm"># MUTABLE — lists, dicts, sets</span>
+messages = [<span class="st">"Hello"</span>, <span class="st">"How are you?"</span>]
+messages.append(<span class="st">"Fine, thanks."</span>)   <span class="cm"># ✅ modifies in place</span>
+
+<span class="cm"># THE GOTCHA — mutable default arguments</span>
+<span class="kw">def</span> <span class="fn">bad_function</span>(history: list = []):   <span class="cm"># ❌ NEVER do this</span>
+    history.append(<span class="st">"new message"</span>)
+    <span class="kw">return</span> history
+
+<span class="cm"># The list is shared across ALL calls!</span>
+<span class="bi">print</span>(bad_function())   <span class="cm"># ['new message']</span>
+<span class="bi">print</span>(bad_function())   <span class="cm"># ['new message', 'new message'] ← bug!</span>
+
+<span class="cm"># ✅ CORRECT pattern</span>
+<span class="kw">def</span> <span class="fn">good_function</span>(history: list = <span class="kw">None</span>):
+    <span class="kw">if</span> history <span class="kw">is None</span>:
+        history = []
+    history.append(<span class="st">"new message"</span>)
+    <span class="kw">return</span> history</pre>
+  </div>
+</section>
+
+<!-- SECTION 2: CONTROL FLOW -->
+<section class="lesson-section" id="control">
+  <div class="section-eyebrow">Section 02</div>
+  <h2 class="section-title">Control <em>Flow</em></h2>
+  <p class="section-intro">Control flow is how your program makes decisions and repeats work. In AI systems, you'll use these primitives to route requests, retry failed API calls, and iterate over batches of data.</p>
+
+  <h3 class="topic-title">Conditionals</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">routing_example.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># A real pattern: routing to different models based on task complexity</span>
+<span class="kw">def</span> <span class="fn">route_to_model</span>(prompt: <span class="bi">str</span>, budget_tokens: <span class="bi">int</span>) -> <span class="bi">str</span>:
+    word_count = <span class="bi">len</span>(prompt.split())
+
+    <span class="kw">if</span> word_count < <span class="nu">50</span> <span class="kw">and</span> budget_tokens < <span class="nu">500</span>:
+        <span class="kw">return</span> <span class="st">"gpt-4o-mini"</span>       <span class="cm"># fast, cheap</span>
+    <span class="kw">elif</span> word_count < <span class="nu">500</span>:
+        <span class="kw">return</span> <span class="st">"gpt-4o"</span>            <span class="cm"># balanced</span>
+    <span class="kw">else</span>:
+        <span class="kw">return</span> <span class="st">"claude-opus-4"</span>     <span class="cm"># large context, powerful</span>
+
+<span class="cm"># match/case — Python 3.10+ structural pattern matching</span>
+<span class="kw">def</span> <span class="fn">handle_api_status</span>(status_code: <span class="bi">int</span>) -> <span class="bi">str</span>:
+    <span class="kw">match</span> status_code:
+        <span class="kw">case</span> <span class="nu">200</span>: <span class="kw">return</span> <span class="st">"success"</span>
+        <span class="kw">case</span> <span class="nu">429</span>: <span class="kw">return</span> <span class="st">"rate_limited — back off and retry"</span>
+        <span class="kw">case</span> <span class="nu">503</span>: <span class="kw">return</span> <span class="st">"service_unavailable"</span>
+        <span class="kw">case</span> _:   <span class="kw">return</span> <span class="st">"unknown_error"</span></pre>
+  </div>
+
+  <h3 class="topic-title">Loops — for, while, comprehensions</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">loops.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># for loop — iterating over a batch of documents</span>
+documents = [<span class="st">"doc1.pdf"</span>, <span class="st">"doc2.pdf"</span>, <span class="st">"doc3.pdf"</span>]
+<span class="kw">for</span> i, doc <span class="kw">in</span> <span class="bi">enumerate</span>(documents):
+    <span class="bi">print</span>(<span class="st">f"Processing [{i+1}/{len(documents)}]: {doc}"</span>)
+
+<span class="cm"># while loop — retry until success (real API pattern)</span>
+<span class="kw">import</span> time
+retries, max_retries = <span class="nu">0</span>, <span class="nu">3</span>
+<span class="kw">while</span> retries < max_retries:
+    <span class="kw">try</span>:
+        response = call_api()   <span class="cm"># attempt the call</span>
+        <span class="kw">break</span>                   <span class="cm"># success — exit loop</span>
+    <span class="kw">except</span> <span class="bi">RateLimitError</span>:
+        retries += <span class="nu">1</span>
+        time.sleep(<span class="nu">2</span> ** retries)  <span class="cm"># exponential backoff</span>
+
+<span class="cm"># List comprehension — concise and fast</span>
+token_counts = [<span class="bi">len</span>(doc.split()) <span class="kw">for</span> doc <span class="kw">in</span> documents]
+
+<span class="cm"># Dict comprehension — build a lookup table</span>
+doc_index = {doc: i <span class="kw">for</span> i, doc <span class="kw">in</span> <span class="bi">enumerate</span>(documents)}
+
+<span class="cm"># Generator expression — memory efficient for large datasets</span>
+<span class="cm"># Doesn't build the whole list in memory at once</span>
+total_tokens = <span class="bi">sum</span>(<span class="bi">len</span>(doc.split()) <span class="kw">for</span> doc <span class="kw">in</span> documents)</pre>
+  </div>
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body"><strong>Performance trap:</strong> When processing 1M documents for a vector database, never build a list in memory with <code>[process(doc) for doc in docs]</code>. Use a generator expression <code>(process(doc) for doc in docs)</code> — it processes one item at a time and uses constant memory.</div>
+  </div>
+</section>
+
+<!-- SECTION 3: FUNCTIONS -->
+<section class="lesson-section" id="functions">
+  <div class="section-eyebrow">Section 03</div>
+  <h2 class="section-title"><em>Functions</em> Done Right</h2>
+  <p class="section-intro">A function is a named, reusable block of code. At an engineering level, good functions are small, do one thing, and are easy to test. This discipline is critical when you're building AI pipelines with dozens of steps.</p>
+
+  <h3 class="topic-title">Anatomy of a Well-Written Function</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">good_functions.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">from</span> typing <span class="kw">import</span> Optional
+<span class="kw">import</span> hashlib
+
+<span class="kw">def</span> <span class="fn">chunk_document</span>(
+    text: <span class="bi">str</span>,
+    chunk_size: <span class="bi">int</span> = <span class="nu">512</span>,
+    overlap: <span class="bi">int</span> = <span class="nu">50</span>,
+    separator: <span class="bi">str</span> = <span class="st">" "</span>
+) -> list[<span class="bi">str</span>]:
+    <span class="st">"""
+    Split a document into overlapping chunks for RAG ingestion.
+
+    Args:
+        text:       The document text to split.
+        chunk_size: Target token count per chunk (approximate).
+        overlap:    Number of tokens to overlap between chunks.
+        separator:  Token delimiter.
+
+    Returns:
+        List of text chunks.
+
+    Example:
+        &gt;&gt;&gt; chunks = chunk_document("Hello world ...", chunk_size=3)
+        &gt;&gt;&gt; len(chunks)
+        2
+    """</span>
+    words = text.split(separator)
+    chunks = []
+    start = <span class="nu">0</span>
+
+    <span class="kw">while</span> start < <span class="bi">len</span>(words):
+        end = start + chunk_size
+        chunk = separator.join(words[start:end])
+        chunks.append(chunk)
+        start += chunk_size - overlap  <span class="cm"># slide window with overlap</span>
+
+    <span class="kw">return</span> chunks
+
+
+<span class="cm"># *args — accept any number of positional arguments</span>
+<span class="kw">def</span> <span class="fn">merge_contexts</span>(*chunks: <span class="bi">str</span>) -> <span class="bi">str</span>:
+    <span class="kw">return</span> <span class="st">"\n\n---\n\n"</span>.join(chunks)
+
+<span class="cm"># **kwargs — accept any keyword arguments (common in wrappers)</span>
+<span class="kw">def</span> <span class="fn">call_with_defaults</span>(prompt: <span class="bi">str</span>, **kwargs) -> <span class="bi">str</span>:
+    defaults = {<span class="st">"temperature"</span>: <span class="nu">0.7</span>, <span class="st">"max_tokens"</span>: <span class="nu">1024</span>}
+    params   = {**defaults, **kwargs}  <span class="cm"># kwargs override defaults</span>
+    <span class="kw">return</span> api_call(prompt, **params)</pre>
+  </div>
+
+  <h3 class="topic-title">Exception Handling — The Production Mindset</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">exceptions.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">import</span> logging
+
+<span class="cm"># Create custom exceptions for your domain</span>
+<span class="kw">class</span> <span class="fn">TokenLimitExceeded</span>(<span class="bi">ValueError</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, token_count: <span class="bi">int</span>, limit: <span class="bi">int</span>):
+        <span class="va">self</span>.token_count = token_count
+        <span class="va">self</span>.limit        = limit
+        <span class="bi">super</span>().__init__(
+            <span class="st">f"Prompt has {token_count} tokens; limit is {limit}"</span>
+        )
+
+<span class="kw">class</span> <span class="fn">ModelUnavailableError</span>(<span class="bi">RuntimeError</span>):
+    <span class="kw">pass</span>
+
+<span class="cm"># Production-grade try/except pattern</span>
+<span class="kw">def</span> <span class="fn">safe_completion</span>(prompt: <span class="bi">str</span>) -> Optional[<span class="bi">str</span>]:
+    <span class="kw">try</span>:
+        validate_token_count(prompt)
+        <span class="kw">return</span> llm.complete(prompt)
+
+    <span class="kw">except</span> <span class="fn">TokenLimitExceeded</span> <span class="kw">as</span> e:
+        logging.warning(<span class="st">f"Trimming prompt: {e}"</span>)
+        trimmed = trim_to_limit(prompt, e.limit)
+        <span class="kw">return</span> llm.complete(trimmed)  <span class="cm"># retry with shorter prompt</span>
+
+    <span class="kw">except</span> <span class="fn">ModelUnavailableError</span>:
+        logging.error(<span class="st">"Primary model down, falling back"</span>)
+        <span class="kw">return</span> fallback_llm.complete(prompt)
+
+    <span class="kw">except</span> <span class="bi">Exception</span> <span class="kw">as</span> e:
+        logging.error(<span class="st">f"Unexpected error: {e}"</span>, exc_info=<span class="kw">True</span>)
+        <span class="kw">return None</span>  <span class="cm"># or raise, depending on your contract</span>
+
+    <span class="kw">finally</span>:
+        <span class="cm"># Always runs — perfect for cleanup</span>
+        logging.info(<span class="st">"Completion attempt finished"</span>)</pre>
+  </div>
+</section>
+
+<!-- SECTION 4: OOP -->
+<section class="lesson-section" id="oop">
+  <div class="section-eyebrow">Section 04</div>
+  <h2 class="section-title">Object-Oriented <em>Programming</em></h2>
+  <p class="section-intro">OOP organises code around objects — bundles of data and behaviour. Every major AI framework (LangChain, FastAPI, PyTorch) is built on OOP. You need to be fluent in reading and writing class-based code.</p>
+
+  <h3 class="topic-title">The 4 Pillars — Applied to AI</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">oop_ai_example.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">from</span> abc <span class="kw">import</span> ABC, abstractmethod
+<span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass, field
+<span class="kw">from</span> typing <span class="kw">import</span> List, Optional
+<span class="kw">import</span> time
+
+<span class="cm"># ── ABSTRACTION ─────────────────────────────────────────────────</span>
+<span class="cm"># Define WHAT a model does, not HOW</span>
+<span class="kw">class</span> <span class="fn">BaseLLM</span>(<span class="fn">ABC</span>):
+    <span class="st">"""Abstract base class for any LLM provider."""</span>
+
+    <span class="de">@abstractmethod</span>
+    <span class="kw">def</span> <span class="fn">complete</span>(<span class="va">self</span>, prompt: <span class="bi">str</span>, **kwargs) -> <span class="bi">str</span>: ...
+
+    <span class="de">@abstractmethod</span>
+    <span class="kw">def</span> <span class="fn">count_tokens</span>(<span class="va">self</span>, text: <span class="bi">str</span>) -> <span class="bi">int</span>: ...
+
+
+<span class="cm"># ── INHERITANCE ─────────────────────────────────────────────────</span>
+<span class="cm"># WHAT changes between providers: API key, endpoint, token counting</span>
+<span class="kw">class</span> <span class="fn">OpenAIModel</span>(<span class="fn">BaseLLM</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, model: <span class="bi">str</span> = <span class="st">"gpt-4o"</span>):
+        <span class="va">self</span>.model = model
+
+    <span class="kw">def</span> <span class="fn">complete</span>(<span class="va">self</span>, prompt: <span class="bi">str</span>, **kwargs) -> <span class="bi">str</span>:
+        <span class="cm"># calls OpenAI API</span>
+        <span class="kw">return</span> openai_client.chat(prompt, model=<span class="va">self</span>.model, **kwargs)
+
+    <span class="kw">def</span> <span class="fn">count_tokens</span>(<span class="va">self</span>, text: <span class="bi">str</span>) -> <span class="bi">int</span>:
+        <span class="kw">return</span> <span class="bi">len</span>(tiktoken.encode(text))
+
+
+<span class="kw">class</span> <span class="fn">ClaudeModel</span>(<span class="fn">BaseLLM</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, model: <span class="bi">str</span> = <span class="st">"claude-sonnet-4-6"</span>):
+        <span class="va">self</span>.model = model
+
+    <span class="kw">def</span> <span class="fn">complete</span>(<span class="va">self</span>, prompt: <span class="bi">str</span>, **kwargs) -> <span class="bi">str</span>:
+        <span class="kw">return</span> anthropic_client.messages(prompt, model=<span class="va">self</span>.model)
+
+    <span class="kw">def</span> <span class="fn">count_tokens</span>(<span class="va">self</span>, text: <span class="bi">str</span>) -> <span class="bi">int</span>:
+        <span class="kw">return</span> anthropic_client.count_tokens(text)
+
+
+<span class="cm"># ── ENCAPSULATION ───────────────────────────────────────────────</span>
+<span class="cm"># Hide internal state; expose clean interface</span>
+<span class="kw">class</span> <span class="fn">ConversationMemory</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, max_tokens: <span class="bi">int</span> = <span class="nu">4000</span>):
+        <span class="va">self</span>._messages: List[dict] = []   <span class="cm"># _ means private by convention</span>
+        <span class="va">self</span>._max_tokens = max_tokens
+
+    <span class="kw">def</span> <span class="fn">add</span>(<span class="va">self</span>, role: <span class="bi">str</span>, content: <span class="bi">str</span>) -> <span class="kw">None</span>:
+        <span class="va">self</span>._messages.append({<span class="st">"role"</span>: role, <span class="st">"content"</span>: content})
+        <span class="va">self</span>._trim_if_needed()  <span class="cm"># auto-manage token budget</span>
+
+    <span class="kw">def</span> <span class="fn">get_history</span>(<span class="va">self</span>) -> List[dict]:
+        <span class="kw">return</span> <span class="va">self</span>._messages.copy()  <span class="cm"># return copy, not reference</span>
+
+    <span class="kw">def</span> <span class="fn">_trim_if_needed</span>(<span class="va">self</span>) -> <span class="kw">None</span>:
+        <span class="cm"># Drop oldest messages when token limit is near</span>
+        <span class="kw">while</span> <span class="va">self</span>._token_count() > <span class="va">self</span>._max_tokens:
+            <span class="va">self</span>._messages.pop(<span class="nu">0</span>)
+
+    <span class="kw">def</span> <span class="fn">_token_count</span>(<span class="va">self</span>) -> <span class="bi">int</span>:
+        <span class="kw">return</span> <span class="bi">sum</span>(<span class="bi">len</span>(m[<span class="st">"content"</span>].split()) <span class="kw">for</span> m <span class="kw">in</span> <span class="va">self</span>._messages)</pre>
+  </div>
+</section>
+
+<!-- SECTION 5: DATA STRUCTURES -->
+<section class="lesson-section" id="data-structures">
+  <div class="section-eyebrow">Section 05</div>
+  <h2 class="section-title">Data <em>Structures</em></h2>
+  <p class="section-intro">Picking the right data structure is one of the most consequential decisions you make as an engineer. In AI systems, the difference between a list and a hash map can be the difference between 200ms and 200 seconds.</p>
+
+  <div class="dsa-grid">
+    <div class="dsa-card">
+      <div class="dsa-name">Array / List</div>
+      <div class="dsa-time">Access O(1) · Search O(n)</div>
+      <div class="dsa-desc">Ordered sequence. Fast access by index. Great for ordered data like token sequences.</div>
+      <div class="dsa-when">✦ Use for sequences, batches</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Hash Map / Dict</div>
+      <div class="dsa-time">Access O(1) · Insert O(1)</div>
+      <div class="dsa-desc">Key-value lookup in constant time. The backbone of caching, config, and token vocabs.</div>
+      <div class="dsa-when">✦ Use for lookups, caches</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Stack</div>
+      <div class="dsa-time">Push/Pop O(1)</div>
+      <div class="dsa-desc">Last-in, first-out. Used for function call stacks, undo operations, DFS traversal.</div>
+      <div class="dsa-when">✦ Use for reversals, DFS</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Queue</div>
+      <div class="dsa-time">Enqueue/Dequeue O(1)</div>
+      <div class="dsa-desc">First-in, first-out. Message queues in AI pipelines, BFS graph traversal.</div>
+      <div class="dsa-when">✦ Use for task queues, BFS</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Heap</div>
+      <div class="dsa-time">Insert O(log n) · Min O(1)</div>
+      <div class="dsa-desc">Priority queue. Always gives you the min/max efficiently. Used for Top-K retrieval.</div>
+      <div class="dsa-when">✦ Use for Top-K, scheduling</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Tree / Trie</div>
+      <div class="dsa-time">Search O(log n) / O(k)</div>
+      <div class="dsa-desc">Hierarchical structure. Tries are used in tokenizer vocabulary lookups.</div>
+      <div class="dsa-when">✦ Use for prefix search, vocab</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Graph</div>
+      <div class="dsa-time">BFS/DFS O(V+E)</div>
+      <div class="dsa-desc">Nodes + edges. Agent dependency graphs, knowledge graphs, state machines.</div>
+      <div class="dsa-when">✦ Use for relationships, agents</div>
+    </div>
+    <div class="dsa-card">
+      <div class="dsa-name">Set</div>
+      <div class="dsa-time">Lookup O(1) · Union O(n)</div>
+      <div class="dsa-desc">Unordered unique elements. Deduplication of retrieved chunks in RAG pipelines.</div>
+      <div class="dsa-when">✦ Use for dedup, membership</div>
+    </div>
+  </div>
+
+  <h3 class="topic-title">Python's Built-in Structures — Real AI Use Cases</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">data_structures_ai.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">from</span> collections <span class="kw">import</span> deque, defaultdict, Counter
+<span class="kw">import</span> heapq
+
+<span class="cm"># ── LIST — token sequence ───────────────────────────────────────</span>
+tokens = [<span class="nu">15043</span>, <span class="nu">995</span>, <span class="nu">11</span>, <span class="nu">910</span>]  <span class="cm"># "Hello world, how"</span>
+tokens.append(<span class="nu">527</span>)              <span class="cm"># O(1) append</span>
+last = tokens.pop()              <span class="cm"># O(1) pop from end</span>
+first = tokens.pop(<span class="nu">0</span>)           <span class="cm"># O(n) pop from front — use deque!</span>
+
+<span class="cm"># ── DEQUE — sliding window / conversation window ────────────────</span>
+<span class="cm"># O(1) append and popleft — perfect for rolling buffers</span>
+window = deque(maxlen=<span class="nu">5</span>)   <span class="cm"># auto-drops oldest when full</span>
+<span class="kw">for</span> token <span class="kw">in</span> [<span class="nu">1</span>, <span class="nu">2</span>, <span class="nu">3</span>, <span class="nu">4</span>, <span class="nu">5</span>, <span class="nu">6</span>]:
+    window.append(token)
+<span class="bi">print</span>(window)   <span class="cm"># deque([2, 3, 4, 5, 6], maxlen=5)</span>
+
+<span class="cm"># ── DICT — model config / token vocab ───────────────────────────</span>
+vocab = {<span class="st">"hello"</span>: <span class="nu">15043</span>, <span class="st">"world"</span>: <span class="nu">995</span>}
+token_id = vocab.get(<span class="st">"unknown"</span>, <span class="nu">0</span>)  <span class="cm"># default 0 for unknown tokens</span>
+
+<span class="cm"># defaultdict — auto-initialise missing keys</span>
+inverted_index = defaultdict(<span class="bi">list</span>)
+<span class="kw">for</span> doc_id, word <span class="kw">in</span> [(<span class="nu">0</span>, <span class="st">"AI"</span>), (<span class="nu">1</span>, <span class="st">"AI"</span>), (<span class="nu">0</span>, <span class="st">"RAG"</span>)]:
+    inverted_index[word].append(doc_id)
+<span class="cm"># {"AI": [0, 1], "RAG": [0]}</span>
+
+<span class="cm"># ── HEAP — Top-K similar documents ──────────────────────────────</span>
+similarity_scores = [(<span class="nu">0.85</span>, <span class="st">"doc_A"</span>), (<span class="nu">0.71</span>, <span class="st">"doc_B"</span>), (<span class="nu">0.93</span>, <span class="st">"doc_C"</span>)]
+top_k = heapq.nlargest(<span class="nu">2</span>, similarity_scores, key=<span class="kw">lambda</span> x: x[<span class="nu">0</span>])
+<span class="cm"># [(0.93, 'doc_C'), (0.85, 'doc_A')]</span>
+
+<span class="cm"># ── COUNTER — token frequency analysis ──────────────────────────</span>
+words = <span class="st">"the the the cat sat on the mat"</span>.split()
+freq  = Counter(words)
+<span class="bi">print</span>(freq.most_common(<span class="nu">3</span>))   <span class="cm"># [('the', 4), ('cat', 1), ('sat', 1)]</span></pre>
+  </div>
+</section>
+
+<!-- SECTION 6: ALGORITHMS -->
+<section class="lesson-section" id="algorithms">
+  <div class="section-eyebrow">Section 06</div>
+  <h2 class="section-title">Core <em>Algorithms</em></h2>
+  <p class="section-intro">You don't need to memorise 200 algorithms. You need to deeply know a handful of patterns that show up everywhere — in interviews and in real AI code.</p>
+
+  <h3 class="topic-title">Two Pointers — Sliding Window</h3>
+  <p class="body-text">The sliding window is one of the most used patterns in NLP preprocessing — finding the longest valid context window, processing token streams efficiently.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">sliding_window.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># Find max-length subarray with sum ≤ budget (e.g. token budget)</span>
+<span class="kw">def</span> <span class="fn">max_window_within_budget</span>(
+    token_costs: list[<span class="bi">int</span>],
+    budget: <span class="bi">int</span>
+) -> <span class="bi">int</span>:
+    left = current_sum = max_len = <span class="nu">0</span>
+
+    <span class="kw">for</span> right, cost <span class="kw">in</span> <span class="bi">enumerate</span>(token_costs):
+        current_sum += cost
+
+        <span class="cm"># shrink window from left until sum is within budget</span>
+        <span class="kw">while</span> current_sum > budget:
+            current_sum -= token_costs[left]
+            left += <span class="nu">1</span>
+
+        max_len = <span class="bi">max</span>(max_len, right - left + <span class="nu">1</span>)
+
+    <span class="kw">return</span> max_len
+
+<span class="cm"># Usage</span>
+costs  = [<span class="nu">100</span>, <span class="nu">200</span>, <span class="nu">150</span>, <span class="nu">300</span>, <span class="nu">50</span>]
+budget = <span class="nu">400</span>
+<span class="bi">print</span>(max_window_within_budget(costs, budget))  <span class="cm"># 3 chunks fit</span></pre>
+  </div>
+
+  <h3 class="topic-title">Binary Search</h3>
+  <p class="body-text">Halves the search space on each step — O(log n) vs O(n) for linear search. Used in sorted retrieval and threshold finding.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">binary_search.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># Classic binary search</span>
+<span class="kw">def</span> <span class="fn">binary_search</span>(arr: list[<span class="bi">int</span>], target: <span class="bi">int</span>) -> <span class="bi">int</span>:
+    left, right = <span class="nu">0</span>, <span class="bi">len</span>(arr) - <span class="nu">1</span>
+
+    <span class="kw">while</span> left <= right:
+        mid = (left + right) // <span class="nu">2</span>
+        <span class="kw">if</span>   arr[mid] == target: <span class="kw">return</span> mid
+        <span class="kw">elif</span> arr[mid] < target:  left  = mid + <span class="nu">1</span>
+        <span class="kw">else</span>:                    right = mid - <span class="nu">1</span>
+
+    <span class="kw">return</span> -<span class="nu">1</span>  <span class="cm"># not found</span>
+
+<span class="cm"># Real AI use: find optimal chunk_size via binary search on quality</span>
+<span class="kw">def</span> <span class="fn">find_optimal_chunk_size</span>(
+    document: <span class="bi">str</span>,
+    quality_fn,          <span class="cm"># function that evaluates retrieval quality</span>
+    min_size: <span class="bi">int</span> = <span class="nu">64</span>,
+    max_size: <span class="bi">int</span> = <span class="nu">2048</span>
+) -> <span class="bi">int</span>:
+    <span class="kw">while</span> min_size < max_size:
+        mid = (min_size + max_size) // <span class="nu">2</span>
+        <span class="kw">if</span> quality_fn(document, chunk_size=mid) >= <span class="nu">0.8</span>:
+            max_size = mid       <span class="cm"># smaller is still good enough</span>
+        <span class="kw">else</span>:
+            min_size = mid + <span class="nu">1</span>  <span class="cm"># need larger chunks</span>
+    <span class="kw">return</span> min_size</pre>
+  </div>
+
+  <h3 class="topic-title">BFS &amp; DFS — Graph Traversal</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">graph_traversal.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="cm"># Agent dependency graph — find execution order</span>
+<span class="cm"># BFS: explore level by level (shortest path)</span>
+<span class="kw">def</span> <span class="fn">bfs</span>(graph: dict, start: <span class="bi">str</span>) -> list[<span class="bi">str</span>]:
+    visited, queue, order = {start}, deque([start]), []
+
+    <span class="kw">while</span> queue:
+        node = queue.popleft()
+        order.append(node)
+        <span class="kw">for</span> neighbour <span class="kw">in</span> graph.get(node, []):
+            <span class="kw">if</span> neighbour <span class="kw">not in</span> visited:
+                visited.add(neighbour)
+                queue.append(neighbour)
+    <span class="kw">return</span> order
+
+<span class="cm"># DFS: go deep before wide (explore full paths)</span>
+<span class="kw">def</span> <span class="fn">dfs</span>(graph: dict, start: <span class="bi">str</span>, visited: set = <span class="kw">None</span>) -> list[<span class="bi">str</span>]:
+    <span class="kw">if</span> visited <span class="kw">is None</span>: visited = set()
+    visited.add(start)
+    order = [start]
+    <span class="kw">for</span> neighbour <span class="kw">in</span> graph.get(start, []):
+        <span class="kw">if</span> neighbour <span class="kw">not in</span> visited:
+            order.extend(dfs(graph, neighbour, visited))
+    <span class="kw">return</span> order
+
+<span class="cm"># Agent graph: planner → retriever → reranker → generator</span>
+agent_graph = {
+    <span class="st">"planner"</span>:   [<span class="st">"retriever"</span>, <span class="st">"tool_caller"</span>],
+    <span class="st">"retriever"</span>: [<span class="st">"reranker"</span>],
+    <span class="st">"reranker"</span>:  [<span class="st">"generator"</span>],
+    <span class="st">"tool_caller"</span>:[<span class="st">"generator"</span>],
+}
+<span class="bi">print</span>(bfs(agent_graph, <span class="st">"planner"</span>))
+<span class="cm"># ['planner', 'retriever', 'tool_caller', 'reranker', 'generator']</span></pre>
+  </div>
+</section>
+
+<!-- SECTION 7: RECURSION -->
+<section class="lesson-section" id="recursion">
+  <div class="section-eyebrow">Section 07</div>
+  <h2 class="section-title"><em>Recursion</em> Demystified</h2>
+  <p class="section-intro">Recursion is a function calling itself. It's elegant for problems with self-similar structure — like trees, nested JSON, or divide-and-conquer algorithms. Many LLM agent loops are conceptually recursive.</p>
+
+  <h3 class="topic-title">The 3-Step Recipe</h3>
+  <div class="callout callout-info">
+    <span class="callout-icon">📐</span>
+    <div class="callout-body">
+      <strong>Every recursive function needs exactly 3 things:</strong><br>
+      1. <strong>Base case</strong> — when to stop (prevents infinite recursion)<br>
+      2. <strong>Recursive case</strong> — call yourself with a smaller problem<br>
+      3. <strong>Progress</strong> — each call must move closer to the base case
+    </div>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">recursion.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># Example 1: Parse nested JSON config (common in AI system configs)</span>
+<span class="kw">def</span> <span class="fn">flatten_config</span>(
+    config: dict,
+    prefix: <span class="bi">str</span> = <span class="st">""</span>,
+    separator: <span class="bi">str</span> = <span class="st">"."</span>
+) -> dict:
+    <span class="st">"""Flatten {"model": {"temperature": 0.7}} → {"model.temperature": 0.7}"""</span>
+    result = {}
+    <span class="kw">for</span> key, value <span class="kw">in</span> config.items():
+        new_key = <span class="st">f"{prefix}{separator}{key}"</span> <span class="kw">if</span> prefix <span class="kw">else</span> key
+        <span class="kw">if</span> <span class="bi">isinstance</span>(value, dict):
+            <span class="cm"># recursive case — nested dict, go deeper</span>
+            result.update(flatten_config(value, new_key, separator))
+        <span class="kw">else</span>:
+            <span class="cm"># base case — scalar value, stop here</span>
+            result[new_key] = value
+    <span class="kw">return</span> result
+
+nested = {
+    <span class="st">"model"</span>: {<span class="st">"name"</span>: <span class="st">"gpt-4o"</span>, <span class="st">"params"</span>: {<span class="st">"temperature"</span>: <span class="nu">0.7</span>}},
+    <span class="st">"rag"</span>: {<span class="st">"top_k"</span>: <span class="nu">5</span>}
+}
+<span class="bi">print</span>(flatten_config(nested))
+<span class="cm"># {"model.name": "gpt-4o", "model.params.temperature": 0.7, "rag.top_k": 5}</span>
+
+<span class="cm"># Example 2: Merge sort — divide and conquer</span>
+<span class="kw">def</span> <span class="fn">merge_sort</span>(arr: list) -> list:
+    <span class="kw">if</span> <span class="bi">len</span>(arr) <= <span class="nu">1</span>:       <span class="cm"># base case</span>
+        <span class="kw">return</span> arr
+
+    mid   = <span class="bi">len</span>(arr) // <span class="nu">2</span>
+    left  = merge_sort(arr[:mid])    <span class="cm"># recursive case</span>
+    right = merge_sort(arr[mid:])    <span class="cm"># recursive case</span>
+
+    <span class="kw">return</span> merge(left, right)        <span class="cm"># combine step</span>
+
+<span class="kw">def</span> <span class="fn">merge</span>(left: list, right: list) -> list:
+    result, i, j = [], <span class="nu">0</span>, <span class="nu">0</span>
+    <span class="kw">while</span> i < <span class="bi">len</span>(left) <span class="kw">and</span> j < <span class="bi">len</span>(right):
+        <span class="kw">if</span> left[i] <= right[j]: result.append(left[i]);  i += <span class="nu">1</span>
+        <span class="kw">else</span>:                   result.append(right[j]); j += <span class="nu">1</span>
+    <span class="kw">return</span> result + left[i:] + right[j:]</pre>
+  </div>
+</section>
+
+<!-- SECTION 8: BIG-O -->
+<section class="lesson-section" id="bigO">
+  <div class="section-eyebrow">Section 08</div>
+  <h2 class="section-title">Big-O &amp; <em>Complexity</em></h2>
+  <p class="section-intro">Big-O describes how an algorithm's runtime scales as input size grows. In AI, you process millions of tokens, billions of embeddings. Choosing O(log n) over O(n²) isn't academic — it's the difference between shipping and not shipping.</p>
+
+  <table class="complexity-table">
+    <thead>
+      <tr><th>Notation</th><th>Name</th><th>Example</th><th>n=1M takes…</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>O(1)</code></td><td>Constant</td><td>Dict lookup by key</td><td><span class="badge badge-green">~instant</span></td></tr>
+      <tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Binary search</td><td><span class="badge badge-green">~20 ops</span></td></tr>
+      <tr><td><code>O(n)</code></td><td>Linear</td><td>Loop through list</td><td><span class="badge badge-blue">~1M ops</span></td></tr>
+      <tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Merge sort</td><td><span class="badge badge-gold">~20M ops</span></td></tr>
+      <tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Nested loops</td><td><span class="badge badge-red">~1 trillion</span></td></tr>
+      <tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>All subsets</td><td><span class="badge badge-red">impossible</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">big_o_examples.py</span><span class="code-lang">Python</span></div>
+    <pre><span class="cm"># O(1) — constant time: hash map lookup</span>
+token_id = vocab[<span class="st">"hello"</span>]        <span class="cm"># same speed whether vocab has 100 or 100,000 words</span>
+
+<span class="cm"># O(log n) — binary search on sorted embedding IDs</span>
+idx = binary_search(sorted_ids, target_id)
+
+<span class="cm"># O(n) — single pass through documents</span>
+total = <span class="bi">sum</span>(<span class="bi">len</span>(doc) <span class="kw">for</span> doc <span class="kw">in</span> documents)
+
+<span class="cm"># O(n log n) — sorting embeddings by similarity score</span>
+ranked = sorted(results, key=<span class="kw">lambda</span> r: r.score, reverse=<span class="kw">True</span>)
+
+<span class="cm"># ❌ O(n²) — comparing every pair (kills you at scale)</span>
+<span class="kw">def</span> <span class="fn">naive_dedup</span>(docs: list) -> list:
+    unique = []
+    <span class="kw">for</span> doc <span class="kw">in</span> docs:
+        <span class="kw">if</span> doc <span class="kw">not in</span> unique:     <span class="cm"># 'in' on list = O(n)!</span>
+            unique.append(doc)       <span class="cm"># whole function = O(n²)</span>
+    <span class="kw">return</span> unique
+
+<span class="cm"># ✅ O(n) — use a set for O(1) membership check</span>
+<span class="kw">def</span> <span class="fn">fast_dedup</span>(docs: list) -> list:
+    seen = set()
+    unique = []
+    <span class="kw">for</span> doc <span class="kw">in</span> docs:
+        key = <span class="bi">hash</span>(doc)
+        <span class="kw">if</span> key <span class="kw">not in</span> seen:        <span class="cm"># 'in' on set = O(1)</span>
+            seen.add(key)
+            unique.append(doc)
+    <span class="kw">return</span> unique</pre>
+  </div>
+</section>
+
+<!-- SECTION 9: CODING PATTERNS -->
+<section class="lesson-section" id="coding-patterns">
+  <div class="section-eyebrow">Section 09</div>
+  <h2 class="section-title">Coding <em>Patterns</em></h2>
+  <p class="section-intro">These are the eight patterns that appear most frequently in AI engineering interviews and in real codebases. Master these and you cover 80% of all coding problems.</p>
+  <div class="dsa-grid">
+    <div class="dsa-card"><div class="dsa-name">Two Sum / Hashing</div><div class="dsa-time">O(n) time · O(n) space</div><div class="dsa-desc">Store seen values in a dict. Reduces O(n²) brute force to O(n).</div></div>
+    <div class="dsa-card"><div class="dsa-name">Sliding Window</div><div class="dsa-time">O(n) time · O(1) space</div><div class="dsa-desc">Two pointers on a subarray. Max/min sum in window, longest valid substring.</div></div>
+    <div class="dsa-card"><div class="dsa-name">Fast &amp; Slow Pointers</div><div class="dsa-time">O(n) time · O(1) space</div><div class="dsa-desc">Detect cycles in linked lists. Used in streaming data detection.</div></div>
+    <div class="dsa-card"><div class="dsa-name">BFS / DFS</div><div class="dsa-time">O(V+E) time</div><div class="dsa-desc">Graph/tree traversal. Agent pipelines, dependency resolution.</div></div>
+    <div class="dsa-card"><div class="dsa-name">Merge Intervals</div><div class="dsa-time">O(n log n) time</div><div class="dsa-desc">Sort then merge overlapping ranges. Scheduling, context window management.</div></div>
+    <div class="dsa-card"><div class="dsa-name">Top K Elements</div><div class="dsa-time">O(n log k) time</div><div class="dsa-desc">Min-heap of size k. Top-K retrieved chunks in RAG, top-K tokens in beam search.</div></div>
+    <div class="dsa-card"><div class="dsa-name">Dynamic Programming</div><div class="dsa-time">Varies · avoids re-computation</div><div class="dsa-desc">Memoize overlapping subproblems. Edit distance, longest common subsequence.</div></div>
+    <div class="dsa-card"><div class="dsa-name">Binary Search on Answer</div><div class="dsa-time">O(n log n) time</div><div class="dsa-desc">Binary search on the range of valid answers. Optimal threshold finding.</div></div>
+  </div>
+</section>
+
+<!-- SECTION 10: PROJECTS -->
+<section class="lesson-section" id="projects">
+  <div class="section-eyebrow">Section 10</div>
+  <h2 class="section-title">Module <em>Projects</em></h2>
+  <p class="section-intro">Build all four. Each one is designed to be small enough to finish in a few hours but complex enough to be genuinely useful and interview-worthy.</p>
+
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-badge">PROJECT 01</span>
+      <span class="project-name">Student Management System</span>
+    </div>
+    <div class="project-body">
+      <p class="project-desc">A command-line app to manage student records with CRUD operations, file persistence, and search. This hits OOP, file I/O, error handling, and data structures all at once.</p>
+      <ul class="feature-list">
+        <li>Add, update, delete, search students using a class-based data model</li>
+        <li>Persist data to JSON (simulate a real database)</li>
+        <li>Sort by GPA using custom comparator — practice Big-O awareness</li>
+        <li>Top-K honour roll using a heap</li>
+        <li>Full type hints + docstrings throughout</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-badge">PROJECT 02</span>
+      <span class="project-name">Expense Tracker CLI</span>
+    </div>
+    <div class="project-body">
+      <p class="project-desc">Track income and expenses, categorise them, and generate monthly summaries. Practices data structures, file handling, and functional programming patterns.</p>
+      <ul class="feature-list">
+        <li>Category-based grouping with defaultdict</li>
+        <li>Monthly aggregation with sorted output</li>
+        <li>CSV import/export (common data format in AI pipelines)</li>
+        <li>Exception handling for malformed input rows</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-badge">PROJECT 03</span>
+      <span class="project-name">CLI Task Manager</span>
+    </div>
+    <div class="project-body">
+      <p class="project-desc">A priority-based task manager using a heap. This directly mirrors how job queues in AI inference systems work — tasks with priorities, deadlines, and statuses.</p>
+      <ul class="feature-list">
+        <li>Min-heap for priority ordering (exactly how Celery, Kafka work)</li>
+        <li>BFS dependency resolution — some tasks must complete before others</li>
+        <li>Filtering by status using list comprehensions</li>
+        <li>Argparse-based CLI interface</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-badge">PROJECT 04</span>
+      <span class="project-name">File Organiser</span>
+    </div>
+    <div class="project-body">
+      <p class="project-desc">Automatically organise files in a directory by type, date, or size. Uses recursion to walk nested folders — a real taste of the file processing you'll do in RAG ingestion pipelines.</p>
+      <ul class="feature-list">
+        <li>Recursive directory traversal with pathlib</li>
+        <li>File type detection and categorisation</li>
+        <li>Duplicate detection using file hashing (MD5/SHA256)</li>
+        <li>Undo functionality using a stack of operations</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW SECTION -->
+<section class="interview-section" id="interview">
+  <div class="interview-header">
+    <div class="interview-title">Interview Questions</div>
+    <div class="interview-subtitle">REAL QUESTIONS · MODULE 00 · CLICK TO REVEAL ANSWERS</div>
+  </div>
+
+  <div id="qContainer"></div>
+
+</section>
+
+<!-- FOOTER -->
+<div class="module-footer">
+  <span class="progress-pill">Module 00 of 12 complete</span>
+  <div class="footer-nav">
+    <a href="#" class="footer-btn btn-prev">← Overview</a>
+    <a href="#" class="footer-btn btn-next">Module 01: Python Mastery →</a>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+const questions = [
+  {
+    num:"01", difficulty:"easy",
+    q:"What is the difference between a list and a tuple in Python? When would you use each?",
+    a:`<p>A <code>list</code> is mutable (can be changed after creation); a <code>tuple</code> is immutable. Use a list when the collection needs to change — appending messages to a conversation history, for example. Use a tuple for data that should never change — model configuration constants, coordinate pairs, database row records. Tuples are slightly faster and use less memory. They can also be used as dictionary keys (lists cannot).</p>
+    <p><strong>AI context:</strong> In a RAG pipeline, a chunk's <code>(doc_id, chunk_index)</code> position is a tuple — it identifies the source and should never be mutated. The list of retrieved chunks changes with every query.</p>`
+  },
+  {
+    num:"02", difficulty:"easy",
+    q:"Explain the difference between == and 'is' in Python.",
+    a:`<p><code>==</code> compares <strong>values</strong>. <code>is</code> compares <strong>identity</strong> — whether two variables point to the exact same object in memory.</p>
+    <p>Example: <code>a = [1,2,3]; b = [1,2,3]; a == b</code> is <code>True</code> (same values), but <code>a is b</code> is <code>False</code> (different objects). Use <code>is</code> only to check for <code>None</code>: <code>if result is None</code>. Using <code>== None</code> can trigger custom <code>__eq__</code> methods with unexpected side effects.</p>`
+  },
+  {
+    num:"03", difficulty:"medium",
+    q:"You have a list of 10 million document embeddings. You need to find the top 5 most similar to a query. What data structure do you use and why?",
+    a:`<p>Use a <strong>min-heap of size 5</strong> (Python's <code>heapq</code>). Iterate through all 10M scores in O(n), maintaining a heap of the current top-5. Each comparison+replacement is O(log 5) — effectively O(1) since k=5 is constant.</p>
+    <p>Total: <strong>O(n)</strong> time and <strong>O(k)</strong> space. If you sorted the full list it would be O(n log n). If you used a brute-force scan tracking top-5 in a list, each insertion would be O(5) — fine here but doesn't scale to top-1000.</p>
+    <p>In production this is exactly what FAISS and Pinecone do internally — approximate nearest neighbour with heap-based tracking.</p>`
+  },
+  {
+    num:"04", difficulty:"medium",
+    q:"What is the time complexity of dictionary lookup in Python? How is it implemented internally?",
+    a:`<p>Average case <strong>O(1)</strong>. Worst case O(n) in the rare event of many hash collisions, but Python 3.6+ uses a hash table with open addressing that makes collisions extremely rare in practice.</p>
+    <p>Internally, Python computes <code>hash(key)</code> to find the bucket index, then checks for equality. For string keys (90% of real-world use), this is extremely fast. The hash is cached for immutable objects — so after the first <code>hash("hello")</code>, subsequent lookups reuse it.</p>
+    <p><strong>Why it matters:</strong> Every LLM token vocabulary (50k–100k entries) is a dict. Every inference request does O(1) token encoding because of this.</p>`
+  },
+  {
+    num:"05", difficulty:"medium",
+    q:"Explain recursion vs iteration. When is recursion dangerous?",
+    a:`<p>Recursion is elegant for self-similar problems (trees, nested configs, divide-and-conquer). Iteration is explicit and more memory-efficient.</p>
+    <p><strong>Recursion is dangerous when:</strong> (1) No base case — infinite recursion crashes with <code>RecursionError</code>. Python's default stack depth is ~1000 frames. (2) Repeated computation — naive Fibonacci recalculates the same values exponentially. Fix with <code>@functools.lru_cache</code> (memoization). (3) Deep nesting — parsing a directory with 10,000 levels of nesting would overflow the stack. Use an explicit stack with iteration instead.</p>
+    <p><strong>AI context:</strong> Recursive agent architectures (a planner calling a planner) need a depth-limit check to prevent runaway loops.</p>`
+  },
+  {
+    num:"06", difficulty:"medium",
+    q:"What is the difference between deep copy and shallow copy? Give a concrete bug example.",
+    a:`<p>A <strong>shallow copy</strong> copies the outer container but keeps references to the inner objects. A <strong>deep copy</strong> recursively copies everything.</p>
+    <p>Bug example: <code>import copy; a = [[1,2],[3,4]]; b = copy.copy(a); b[0].append(99)</code> — now <code>a[0]</code> is <code>[1,2,99]</code> too, because <code>b[0]</code> and <code>a[0]</code> are the same object.</p>
+    <p><strong>AI context:</strong> If you shallow-copy a conversation history object and a background thread appends to it, you get a data race. Always deep-copy state before passing it to worker threads, or use immutable data structures.</p>`
+  },
+  {
+    num:"07", difficulty:"hard",
+    q:"Implement a function that finds all pairs in a list that sum to a target. Analyse the time and space complexity of your solution.",
+    a:`<p>Use a hash set for O(n) time:</p>
+    <p><code>def two_sum_pairs(nums, target):<br>&nbsp;&nbsp;seen, pairs = set(), []<br>&nbsp;&nbsp;for n in nums:<br>&nbsp;&nbsp;&nbsp;&nbsp;complement = target - n<br>&nbsp;&nbsp;&nbsp;&nbsp;if complement in seen: pairs.append((complement, n))<br>&nbsp;&nbsp;&nbsp;&nbsp;seen.add(n)<br>&nbsp;&nbsp;return pairs</code></p>
+    <p><strong>Time:</strong> O(n) — one pass, O(1) set lookup per element. <strong>Space:</strong> O(n) — the seen set holds up to n elements. The brute force nested loop approach is O(n²) time, O(1) space — always take the hash set trade-off for large n.</p>`
+  },
+  {
+    num:"08", difficulty:"hard",
+    q:"What is a generator in Python and why is it critical for processing large AI datasets?",
+    a:`<p>A generator is a function that uses <code>yield</code> to produce values one at a time, suspending execution between each. It returns a generator object that is lazy — values are computed only when requested, not all at once.</p>
+    <p><strong>Why critical:</strong> Loading 1M PDF documents into a list uses gigabytes of RAM and crashes your process. A generator-based data pipeline processes one document at a time using O(1) memory regardless of dataset size.</p>
+    <p>Example: <code>def stream_docs(path): for f in Path(path).glob("*.pdf"): yield extract_text(f)</code>. The caller gets a lazy iterator — PyTorch DataLoader, your chunker, your embedder — all process one document at a time without ever holding the full dataset in memory. This is how all production ML data pipelines work.</p>`
+  },
+  {
+    num:"09", difficulty:"hard",
+    q:"Design a cache with O(1) get and set that automatically evicts the least-recently-used item when full.",
+    a:`<p>LRU Cache = <strong>HashMap + Doubly Linked List</strong>. The hashmap gives O(1) key→node lookup. The linked list tracks recency order — most recent at head, least at tail.</p>
+    <p>On <code>get</code>: look up node in dict, move to head — O(1). On <code>set</code>: if key exists, update and move to head. If cache is full, evict tail node and remove from dict. Insert new node at head — all O(1).</p>
+    <p>Python shortcut: <code>from functools import lru_cache</code> or <code>from collections import OrderedDict</code>. LRU cache is critical in AI for: caching LLM responses for repeated queries, caching tokenised prompts, caching embedding results.</p>`
+  },
+  {
+    num:"10", difficulty:"hard",
+    q:"What is the mutable default argument trap and how does it appear in AI systems?",
+    a:`<p>When you write <code>def f(x=[]):</code>, the default list is created once when the function is defined — not each time it's called. All calls that use the default share the same list object.</p>
+    <p><strong>AI system example:</strong> A chat agent that stores conversation history: <code>def chat(message, history=[])</code>. If two users call this function concurrently without passing their own history, they both append to the same shared list — their conversations bleed into each other. This is a real production bug in stateful AI systems.</p>
+    <p><strong>Fix:</strong> Always use <code>None</code> as default and initialise inside the function: <code>def chat(message, history=None): if history is None: history = []</code>.</p>`
+  },
+  {
+    num:"11", difficulty:"medium",
+    q:"Explain Big-O of merge sort vs quicksort. When does quicksort beat merge sort in practice?",
+    a:`<p><strong>Merge sort:</strong> O(n log n) always — guaranteed. Uses O(n) extra space. Stable sort. <strong>Quicksort:</strong> O(n log n) average, O(n²) worst case (sorted input with bad pivot). O(log n) space for call stack. Unstable.</p>
+    <p>Quicksort beats merge sort in practice because of <strong>cache locality</strong> — it operates in-place on contiguous memory, making better use of CPU cache. For random data, the O(n²) worst case almost never occurs. Python's built-in <code>sort()</code> uses Timsort — a hybrid of merge sort and insertion sort, O(n log n) worst case, O(n) best case on nearly-sorted data.</p>`
+  },
+  {
+    num:"12", difficulty:"easy",
+    q:"What is the difference between a module and a package in Python?",
+    a:`<p>A <strong>module</strong> is a single <code>.py</code> file. A <strong>package</strong> is a directory containing an <code>__init__.py</code> file and one or more modules. Packages let you organise related modules into a namespace.</p>
+    <p>Example: <code>import anthropic</code> imports the anthropic <em>package</em>. <code>from anthropic import Anthropic</code> imports the <code>Anthropic</code> class from that package's <code>__init__.py</code>. Your AI project should be structured as a package: <code>my_rag/</code> with <code>__init__.py</code>, <code>chunker.py</code>, <code>embedder.py</code>, <code>retriever.py</code> — not a flat directory of scripts.</p>`
+  },
+];
+
+const container = document.getElementById('qContainer');
+questions.forEach(item => {
+  const diffClass = item.difficulty === 'easy' ? 'diff-easy' : item.difficulty === 'medium' ? 'diff-med' : 'diff-hard';
+  const block = document.createElement('div');
+  block.className = 'q-block';
+  block.innerHTML = `
+    <div class="q-row" onclick="toggleQ(this)">
+      <span class="q-num">Q${item.num}</span>
+      <span class="q-text">${item.q}</span>
+      <span class="q-difficulty ${diffClass}">${item.difficulty}</span>
+      <span class="q-arrow">▶</span>
+    </div>
+    <div class="q-answer">${item.a}</div>
+  `;
+  container.appendChild(block);
+});
+
+function toggleQ(row) {
+  row.classList.toggle('open');
+  row.nextElementSibling.classList.toggle('visible');
+}
+
+// Sidebar scroll spy
+const sections = document.querySelectorAll('.lesson-section, .interview-section');
+const links    = document.querySelectorAll('.sidebar-link');
+const fill     = document.getElementById('progressFill');
+const count    = document.getElementById('progressCount');
+let visited    = new Set();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      visited.add(entry.target.id);
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+      const pct = Math.round((visited.size / 11) * 100);
+      fill.style.width = pct + '%';
+      count.textContent = `${visited.size} / 11 sections`;
+    }
+  });
+}, {threshold: 0.2});
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Path — Free End-to-End Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;
+  --ink2:#2a2a3a;
+  --ink3:#6a6a7a;
+  --ink4:#a0a0b0;
+  --surface:#f8f7f4;
+  --white:#ffffff;
+  --accent:#ff4d1c;
+  --accent2:#1a0aff;
+  --green:#0a8a5e;
+  --gold:#c87c10;
+  --border:rgba(10,10,15,0.1);
+  --border2:rgba(10,10,15,0.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--surface);color:var(--ink);line-height:1.6;font-size:16px;overflow-x:hidden}
+
+/* ── NAV ── */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(248,247,244,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:60px;
+}
+.nav-logo{
+  font-size:14px;font-weight:800;letter-spacing:-0.02em;
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--ink);
+}
+.logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;display:inline-block;flex-shrink:0}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-link{font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;letter-spacing:-0.01em;transition:color 0.15s}
+.nav-link:hover{color:var(--ink)}
+.nav-cta{
+  background:var(--ink);color:white;
+  padding:9px 20px;border-radius:4px;
+  font-size:13px;font-weight:600;
+  text-decoration:none;letter-spacing:-0.01em;
+  transition:background 0.15s;
+}
+.nav-cta:hover{background:var(--accent)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 420px;
+  align-items:center;
+  gap:0;
+  padding:0 3rem;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+  background:var(--white);
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 60% 50% at 80% 50%, rgba(26,10,255,0.04) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-bg-num{
+  position:absolute;
+  right:-40px;bottom:-60px;
+  font-size:28rem;font-weight:800;
+  color:rgba(10,10,15,0.028);
+  line-height:1;
+  letter-spacing:-0.06em;
+  pointer-events:none;
+  user-select:none;
+}
+.hero-left{position:relative;z-index:2;padding:6rem 0 5rem}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:0.12em;
+  color:var(--accent);text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--accent)}
+h1.hero-title{
+  font-size:clamp(3rem,5.5vw,5.2rem);
+  font-weight:800;letter-spacing:-0.045em;
+  line-height:1.0;
+  margin-bottom:1.5rem;
+}
+h1.hero-title em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-weight:400;
+  color:var(--accent);
+}
+h1.hero-title .blue{color:var(--accent2)}
+.hero-desc{
+  font-size:18px;font-weight:400;
+  color:var(--ink2);
+  max-width:540px;line-height:1.75;
+  margin-bottom:2.5rem;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:3.5rem}
+.btn-primary{
+  background:var(--ink);color:white;
+  padding:15px 30px;border-radius:4px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  text-decoration:none;display:inline-block;
+  transition:background 0.15s;letter-spacing:-0.01em;
+}
+.btn-primary:hover{background:var(--accent)}
+.btn-ghost{
+  background:transparent;color:var(--ink);
+  padding:15px 30px;border-radius:4px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:700;
+  text-decoration:none;display:inline-block;
+  border:1.5px solid var(--border);
+  transition:all 0.15s;letter-spacing:-0.01em;
+}
+.btn-ghost:hover{background:var(--ink);color:white;border-color:var(--ink)}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--border);border-radius:6px;
+  overflow:hidden;
+  max-width:520px;
+}
+.stat{
+  padding:1.2rem 1rem;
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.stat:last-child{border-right:none}
+.stat-num{font-size:1.8rem;font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:4px}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:0.08em;text-transform:uppercase}
+
+/* hero right panel */
+.hero-right{
+  position:relative;z-index:2;
+  padding:6rem 0 5rem 3rem;
+  border-left:1px solid var(--border);
+  height:100%;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.module-preview-list{display:flex;flex-direction:column;gap:0}
+.mp-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border2);
+  cursor:default;
+  transition:background 0.12s;
+  padding-left:6px;border-radius:4px;
+}
+.mp-item:hover{background:var(--surface)}
+.mp-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--ink4);
+  min-width:28px;
+}
+.mp-bar{width:3px;height:32px;border-radius:2px;flex-shrink:0}
+.mp-info{}
+.mp-title{font-size:13px;font-weight:700;letter-spacing:-0.01em;margin-bottom:2px}
+.mp-tags{display:flex;gap:4px;flex-wrap:wrap}
+.mp-tag{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  padding:2px 6px;border-radius:2px;
+  background:var(--surface);color:var(--ink4);
+}
+.preview-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:1rem;
+}
+
+/* ── MARQUEE BAND ── */
+.marquee-band{
+  background:var(--ink);
+  padding:14px 0;overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.marquee-track{
+  display:flex;gap:0;
+  animation:marquee 30s linear infinite;
+  white-space:nowrap;
+}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:0.08em;
+  color:rgba(255,255,255,0.4);
+  padding:0 2rem;
+  display:inline-flex;align-items:center;gap:1rem;
+}
+.marquee-item::after{content:'·';color:var(--accent)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── PHILOSOPHY SECTION ── */
+.philosophy{
+  padding:7rem 3rem;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+}
+.phil-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  max-width:1100px;margin:0 auto;
+  align-items:center;
+}
+.phil-left{}
+.section-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:8px;
+}
+.section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+h2.section-heading{
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;letter-spacing:-0.04em;
+  line-height:1.05;margin-bottom:1.2rem;
+}
+h2.section-heading em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.section-body{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:1.5rem}
+.phil-right{display:flex;flex-direction:column;gap:0}
+.phil-step{
+  display:flex;gap:1.5rem;
+  padding:1.4rem 0;
+  border-bottom:1px solid var(--border2);
+}
+.phil-step:last-child{border-bottom:none}
+.ps-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--accent);
+  min-width:28px;padding-top:3px;font-weight:600;
+}
+.ps-title{font-size:15px;font-weight:700;margin-bottom:4px;letter-spacing:-0.02em}
+.ps-desc{font-size:13px;color:var(--ink3);line-height:1.6}
+
+/* ── MODULES GRID ── */
+.modules-section{
+  padding:7rem 3rem;
+  border-bottom:1px solid var(--border);
+}
+.modules-header{
+  max-width:1100px;margin:0 auto 3rem;
+  display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.modules-count{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink4)}
+.modules-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+}
+.module-card{
+  padding:1.8rem;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--white);
+  cursor:pointer;
+  transition:background 0.15s;
+  position:relative;
+  text-decoration:none;color:inherit;
+  display:block;
+}
+.module-card:hover{background:var(--surface)}
+.module-card:nth-child(3n){border-right:none}
+.module-card:nth-last-child(-n+3){border-bottom:none}
+.mc-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.mc-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:0.1em;
+  color:var(--ink4);margin-bottom:10px;
+}
+.mc-title{font-size:15px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;line-height:1.3}
+.mc-desc{font-size:12px;color:var(--ink3);line-height:1.55;margin-bottom:12px}
+.mc-chips{display:flex;flex-wrap:wrap;gap:4px}
+.mc-chip{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:3px 8px;background:var(--surface);
+  border-radius:3px;color:var(--ink3);
+}
+.mc-arrow{
+  position:absolute;bottom:1.4rem;right:1.4rem;
+  font-size:18px;color:var(--ink4);
+  opacity:0;transition:all 0.2s;
+  transform:translate(-4px,4px);
+}
+.module-card:hover .mc-arrow{opacity:1;transform:translate(0,0)}
+
+/* ── STACK SECTION ── */
+.stack-section{
+  padding:7rem 3rem;
+  background:var(--ink);
+  color:white;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.stack-inner{max-width:1100px;margin:0 auto}
+.stack-header{margin-bottom:4rem}
+.stack-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:8px;
+}
+.stack-label::before{content:'';width:20px;height:1px;background:rgba(255,255,255,0.2)}
+h2.stack-heading{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;letter-spacing:-0.04em;
+  line-height:1.05;
+}
+h2.stack-heading em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.tech-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:1px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:6px;overflow:hidden;
+  margin-top:3rem;
+}
+.tech-item{
+  background:#0e0e18;
+  padding:1.5rem 1rem;
+  text-align:center;
+  transition:background 0.15s;
+}
+.tech-item:hover{background:#16161f}
+.tech-icon{font-size:24px;margin-bottom:8px}
+.tech-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.04em}
+.tech-cat{font-size:10px;color:rgba(255,255,255,0.25);margin-top:2px}
+
+/* ── PROJECTS SHOWCASE ── */
+.projects-section{
+  padding:7rem 3rem;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+}
+.projects-inner{max-width:1100px;margin:0 auto}
+.projects-header{margin-bottom:3rem}
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.proj-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  transition:box-shadow 0.15s;
+}
+.proj-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.proj-head{
+  padding:1.2rem 1.5rem;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid var(--border2);
+}
+.proj-module{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:4px 10px;border-radius:3px;
+  font-weight:600;letter-spacing:0.06em;
+}
+.proj-name{font-size:15px;font-weight:700;letter-spacing:-0.02em}
+.proj-body{padding:1.2rem 1.5rem}
+.proj-desc{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:1rem}
+.proj-skills{display:flex;flex-wrap:wrap;gap:5px}
+.proj-skill{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:3px 8px;border-radius:3px;
+  background:var(--surface);color:var(--ink3);
+}
+
+/* ── CTA ── */
+.cta-section{
+  padding:8rem 3rem;
+  background:var(--white);
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'FREE';
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  font-size:30rem;font-weight:800;
+  color:rgba(10,10,15,0.018);
+  letter-spacing:-0.06em;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.cta-inner{position:relative;z-index:2}
+.cta-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.5rem;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.cta-eyebrow::before,.cta-eyebrow::after{content:'';width:28px;height:1px;background:var(--accent)}
+h2.cta-heading{
+  font-size:clamp(2.5rem,5vw,5rem);
+  font-weight:800;letter-spacing:-0.05em;
+  line-height:1.0;margin-bottom:1.2rem;
+}
+h2.cta-heading em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.cta-desc{font-size:18px;color:var(--ink2);max-width:500px;margin:0 auto 2.5rem;line-height:1.7}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+.footer{
+  padding:3rem;
+  border-top:1px solid var(--border);
+  background:var(--surface);
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:3rem;
+}
+.footer-brand{}
+.footer-logo{
+  font-size:14px;font-weight:800;letter-spacing:-0.02em;
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.footer-tagline{font-size:13px;color:var(--ink3);line-height:1.6}
+.footer-col{}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:12px;font-family:'JetBrains Mono',monospace}
+.footer-link{
+  display:block;font-size:13px;color:var(--ink3);
+  text-decoration:none;margin-bottom:6px;
+  transition:color 0.15s;
+}
+.footer-link:hover{color:var(--ink)}
+.footer-bottom{
+  padding:1.5rem 3rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+  background:var(--surface);
+}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink4)}
+.free-pill{
+  background:var(--accent);color:white;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;
+  padding:6px 16px;border-radius:3px;letter-spacing:0.07em;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:2rem}
+  .hero-right{border-left:none;border-top:1px solid var(--border);padding:2rem 0 0}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .modules-grid{grid-template-columns:repeat(2,1fr)}
+  .module-card:nth-child(3n){border-right:1px solid var(--border)}
+  .module-card:nth-child(2n){border-right:none}
+  .phil-grid{grid-template-columns:1fr;gap:3rem}
+  .tech-grid{grid-template-columns:repeat(3,1fr)}
+  .projects-grid{grid-template-columns:1fr}
+  .footer{grid-template-columns:1fr 1fr;gap:2rem}
+  .nav{padding:0 1.5rem}
+  .philosophy,.modules-section,.stack-section,.projects-section,.cta-section{padding:4rem 1.5rem}
+}
+@media(max-width:600px){
+  .modules-grid{grid-template-columns:1fr}
+  .module-card:nth-child(n){border-right:none}
+  .nav-links .nav-link{display:none}
+  .footer{grid-template-columns:1fr}
+}
+
+/* entry animation */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-left>*{animation:fadeUp 0.5s ease forwards;opacity:0}
+.hero-left>*:nth-child(1){animation-delay:0.05s}
+.hero-left>*:nth-child(2){animation-delay:0.12s}
+.hero-left>*:nth-child(3){animation-delay:0.2s}
+.hero-left>*:nth-child(4){animation-delay:0.28s}
+.hero-left>*:nth-child(5){animation-delay:0.36s}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="#" class="nav-logo"><span class="logo-dot"></span>AI Engineer Path</a>
+  <div class="nav-links">
+    <a href="#modules" class="nav-link">Curriculum</a>
+    <a href="#stack" class="nav-link">Tech Stack</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#about" class="nav-link">About</a>
+  </div>
+  <a href="module-00-cs-foundations.html" class="nav-cta">Start Free →</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Completely Free · No Paywall · No Email Required</div>
+    <h1 class="hero-title">
+      From<br><em>Coder</em> to<br><span class="blue">AI Engineer</span>
+    </h1>
+    <p class="hero-desc">
+      13 modules. Python to production LLMs. RAG systems, agentic AI, transformers, fine-tuning. The course that teaches you what actually gets you hired — with real interview questions after every module.
+    </p>
+    <div class="hero-actions">
+      <a href="module-00-cs-foundations.html" class="btn-primary">Start Learning →</a>
+      <a href="#modules" class="btn-ghost">View Curriculum</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">13</div><div class="stat-label">Modules</div></div>
+      <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Projects</div></div>
+      <div class="stat"><div class="stat-num">150+</div><div class="stat-label">Interview Qs</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Free</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="preview-label">Course Modules</div>
+    <div class="module-preview-list" id="heroModuleList"></div>
+  </div>
+  <div class="hero-bg-num">AI</div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-band">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy" id="about">
+  <div class="phil-grid">
+    <div class="phil-left">
+      <div class="section-label">Why This Course</div>
+      <h2 class="section-heading">Built to keep you<br><em>going</em></h2>
+      <p class="section-body">Most courses lose you at module 3 — toy examples, handwaving, zero production context. This one is different. Every concept is grounded in what you'd actually build at an AI company. Every project is something you'd be proud to show in an interview.</p>
+      <p class="section-body">It's also completely free. No premium tier. No certificate paywall. No upsells. Because the AI talent gap is a knowledge distribution problem, and knowledge should be free.</p>
+    </div>
+    <div class="phil-right">
+      <div class="phil-step"><span class="ps-num">01</span><div><div class="ps-title">Concepts first, code second</div><div class="ps-desc">Every topic uses real-world analogies before a single line of code is written. You understand the why, not just the how.</div></div></div>
+      <div class="phil-step"><span class="ps-num">02</span><div><div class="ps-title">Production-grade projects</div><div class="ps-desc">No "Hello World" LLM wrappers. Every project is something that runs in real companies — inference servers, RAG pipelines, agent systems.</div></div></div>
+      <div class="phil-step"><span class="ps-num">03</span><div><div class="ps-title">Real interview questions</div><div class="ps-desc">10–15 questions after every module. From actual AI company interviews. With detailed answers that explain the reasoning, not just the answer.</div></div></div>
+      <div class="phil-step"><span class="ps-num">04</span><div><div class="ps-title">Progressive, nothing wasted</div><div class="ps-desc">Module 07 assumes Module 06. Every concept you learn compounds into the next. Nothing is a detour.</div></div></div>
+      <div class="phil-step"><span class="ps-num">05</span><div><div class="ps-title">Intermediate, not beginner</div><div class="ps-desc">We don't explain what a variable is for 3 hours. We move fast, go deep, and treat you like the professional you're becoming.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODULES ── -->
+<section class="modules-section" id="modules">
+  <div class="modules-header">
+    <div>
+      <div class="section-label">Full Curriculum</div>
+      <h2 class="section-heading">13 Modules.<br><em>End to End.</em></h2>
+    </div>
+    <span class="modules-count">13 modules · 60+ projects · 150+ interview questions</span>
+  </div>
+  <div class="modules-grid" id="mainModulesGrid"></div>
+</section>
+
+<!-- ── TECH STACK ── -->
+<section class="stack-section" id="stack">
+  <div class="stack-inner">
+    <div class="stack-header">
+      <div class="stack-label">What You'll Master</div>
+      <h2 class="stack-heading">The full<br><em>AI engineering</em> stack</h2>
+    </div>
+    <div class="tech-grid" id="techGrid"></div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section class="projects-section" id="projects">
+  <div class="projects-inner">
+    <div class="projects-header">
+      <div class="section-label">Capstone Projects</div>
+      <h2 class="section-heading">Build things that<br><em>matter</em></h2>
+    </div>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Start Today</div>
+    <h2 class="cta-heading">Zero cost.<br><em>Real</em> skills.</h2>
+    <p class="cta-desc">No account needed. No email required. Open Module 00 and start building.</p>
+    <div class="cta-actions">
+      <a href="module-00-cs-foundations.html" class="btn-primary">Begin Module 00 →</a>
+      <a href="#modules" class="btn-ghost">Browse Curriculum</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-brand">
+    <div class="footer-logo"><span class="logo-dot"></span>AI Engineer Path</div>
+    <p class="footer-tagline">A free, open-source course for becoming a production AI engineer. No paywalls. No gatekeeping.</p>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Modules</div>
+    <a href="module-00-cs-foundations.html" class="footer-link">00 — CS Foundations</a>
+    <a href="#" class="footer-link">01 — Python Mastery</a>
+    <a href="#" class="footer-link">02 — Backend & APIs</a>
+    <a href="#" class="footer-link">03 — Math for AI</a>
+    <a href="#" class="footer-link">04 — ML Foundations</a>
+    <a href="#" class="footer-link">05 — Deep Learning</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Advanced</div>
+    <a href="#" class="footer-link">06 — Transformers & LLMs</a>
+    <a href="#" class="footer-link">07 — GenAI Engineering</a>
+    <a href="#" class="footer-link">08 — Agentic AI</a>
+    <a href="#" class="footer-link">09 — Enterprise Architecture</a>
+    <a href="#" class="footer-link">10 — Multimodal AI</a>
+    <a href="#" class="footer-link">11 — Advanced Engineering</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Resources</div>
+    <a href="#" class="footer-link">GitHub Repository</a>
+    <a href="#" class="footer-link">Community Discord</a>
+    <a href="#" class="footer-link">Interview Prep Guide</a>
+    <a href="#" class="footer-link">Project Gallery</a>
+    <a href="#" class="footer-link">Contribute</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2025 AI Engineer Path · MIT License · Free Forever</span>
+  <span class="free-pill">ALWAYS FREE</span>
+</div>
+
+<script>
+const modules = [
+  {num:'00',title:'CS & Programming Foundations',desc:'Variables, data structures, Big-O, OOP, algorithms. The bedrock everything else is built on.',tags:['Python','DSA','Git'],color:'#1a0aff',href:'module-00-cs-foundations.html'},
+  {num:'01',title:'Python Engineering Mastery',desc:'Async, generators, decorators, Pydantic, testing. Enterprise-grade Python that gets you hired.',tags:['asyncio','Pydantic','Pytest'],color:'#ff4d1c',href:'#'},
+  {num:'02',title:'Backend Engineering & APIs',desc:'FastAPI, PostgreSQL, Redis, Kafka, Docker. Build the infrastructure AI systems run on.',tags:['FastAPI','Redis','Docker'],color:'#0a8a5e',href:'#'},
+  {num:'03',title:'Mathematics for AI',desc:'Linear algebra, probability, calculus, gradient descent. The math that actually matters.',tags:['Linear Algebra','Stats','Calculus'],color:'#9b1aff',href:'#'},
+  {num:'04',title:'Machine Learning Foundations',desc:'Classical ML end to end — data to deployed model. XGBoost, SVM, feature engineering.',tags:['Scikit-learn','XGBoost','Pandas'],color:'#c87c10',href:'#'},
+  {num:'05',title:'Deep Learning & Neural Networks',desc:'PyTorch, CNNs, RNNs, LSTMs, embeddings, GPU training. How modern AI learns.',tags:['PyTorch','CNNs','Embeddings'],color:'#c0392b',href:'#'},
+  {num:'06',title:'Transformers & LLM Internals',desc:'Attention mechanisms, tokenization, RLHF, quantization, vLLM. Know your tools deeply.',tags:['Transformers','vLLM','KV Cache'],color:'#1a0aff',href:'#'},
+  {num:'07',title:'Generative AI Engineering',desc:'RAG systems, vector databases, prompt engineering, evaluation. Build GenAI products.',tags:['RAG','Pinecone','RAGAS'],color:'#ff4d1c',href:'#'},
+  {num:'08',title:'Agentic AI Systems',desc:'Multi-agent orchestration, LangGraph, CrewAI, autonomous planning and memory systems.',tags:['LangGraph','CrewAI','Agents'],color:'#0a8a5e',href:'#'},
+  {num:'09',title:'Enterprise AI Architecture',desc:'Kubernetes, distributed inference, Langfuse, AI governance. Ship production-grade AI.',tags:['K8s','MLflow','Ray'],color:'#9b1aff',href:'#'},
+  {num:'10',title:'Multimodal AI',desc:'Vision models, ASR, document AI, video understanding — AI beyond text.',tags:['Vision','ASR','Document AI'],color:'#c87c10',href:'#'},
+  {num:'11',title:'Advanced AI Engineering',desc:'LoRA fine-tuning, QLoRA, quantization, distillation, AI security and prompt injection.',tags:['LoRA','QLoRA','Security'],color:'#c0392b',href:'#'},
+  {num:'12',title:'Capstone Enterprise Projects',desc:'5 full-scale production systems. Ship an underwriting platform, voice AI agent, RAG OS.',tags:['Portfolio','Production','End-to-End'],color:'#1a0aff',href:'#'},
+];
+
+// Hero module list (compact)
+const heroList = document.getElementById('heroModuleList');
+modules.forEach(m => {
+  const el = document.createElement('a');
+  el.href = m.href;
+  el.style.textDecoration = 'none';
+  el.style.color = 'inherit';
+  el.innerHTML = `<div class="mp-item">
+    <span class="mp-num">${m.num}</span>
+    <div class="mp-bar" style="background:${m.color}"></div>
+    <div class="mp-info">
+      <div class="mp-title">${m.title}</div>
+      <div class="mp-tags">${m.tags.map(t=>`<span class="mp-tag">${t}</span>`).join('')}</div>
+    </div>
+  </div>`;
+  heroList.appendChild(el);
+});
+
+// Main modules grid
+const grid = document.getElementById('mainModulesGrid');
+modules.forEach(m => {
+  const card = document.createElement('a');
+  card.href = m.href;
+  card.className = 'module-card';
+  card.innerHTML = `
+    <div class="mc-accent" style="background:${m.color}"></div>
+    <div class="mc-num">MODULE ${m.num}</div>
+    <div class="mc-title">${m.title}</div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-chips">${m.tags.map(t=>`<span class="mc-chip">${t}</span>`).join('')}</div>
+    <span class="mc-arrow">→</span>
+  `;
+  grid.appendChild(card);
+});
+
+// Marquee
+const terms = ['Python','FastAPI','PyTorch','Transformers','RAG Systems','LangGraph','CrewAI','Vector Databases','Fine-Tuning','LoRA','vLLM','RLHF','Agents','Multimodal AI','Kubernetes','MLflow','Pydantic','AsyncIO','Pinecone','FAISS','Langfuse','OpenTelemetry','Quantization','Distillation','BFS · DFS','Big-O Complexity','Prompt Engineering','Chain-of-Thought'];
+const track = document.getElementById('marqueeTrack');
+const doubled = [...terms,...terms];
+doubled.forEach(t => {
+  const span = document.createElement('span');
+  span.className = 'marquee-item';
+  span.textContent = t;
+  track.appendChild(span);
+});
+
+// Tech grid
+const techs = [
+  {icon:'🐍',name:'Python',cat:'Language'},
+  {icon:'⚡',name:'FastAPI',cat:'Backend'},
+  {icon:'🔥',name:'PyTorch',cat:'Deep Learning'},
+  {icon:'🤗',name:'HuggingFace',cat:'Models'},
+  {icon:'🦜',name:'LangChain',cat:'Orchestration'},
+  {icon:'🕸',name:'LangGraph',cat:'Agents'},
+  {icon:'🐘',name:'PostgreSQL',cat:'Database'},
+  {icon:'⚡',name:'Redis',cat:'Cache'},
+  {icon:'📨',name:'Kafka',cat:'Messaging'},
+  {icon:'🐳',name:'Docker',cat:'Infra'},
+  {icon:'☸',name:'Kubernetes',cat:'Orchestration'},
+  {icon:'📌',name:'Pinecone',cat:'Vector DB'},
+  {icon:'🧮',name:'FAISS',cat:'Vector Search'},
+  {icon:'🔭',name:'MLflow',cat:'Observability'},
+  {icon:'📊',name:'Langfuse',cat:'LLM Tracing'},
+  {icon:'🚀',name:'vLLM',cat:'Inference'},
+  {icon:'🤖',name:'CrewAI',cat:'Agents'},
+  {icon:'📐',name:'Pydantic',cat:'Validation'},
+  {icon:'🧪',name:'Pytest',cat:'Testing'},
+  {icon:'🔬',name:'Weights & Biases',cat:'Experiment'},
+  {icon:'⛏',name:'Ray',cat:'Distributed'},
+  {icon:'📝',name:'Ollama',cat:'Local LLMs'},
+  {icon:'🧠',name:'Anthropic SDK',cat:'LLM API'},
+  {icon:'🌐',name:'OpenAI SDK',cat:'LLM API'},
+];
+const tg = document.getElementById('techGrid');
+techs.forEach(t => {
+  const el = document.createElement('div');
+  el.className = 'tech-item';
+  el.innerHTML = `<div class="tech-icon">${t.icon}</div><div class="tech-name">${t.name}</div><div class="tech-cat">${t.cat}</div>`;
+  tg.appendChild(el);
+});
+
+// Projects
+const projects = [
+  {module:'MOD 07',moduleColor:'#ff4d1c',name:'Enterprise RAG Platform',desc:'A full document ingestion-to-answer pipeline: PDF parsing, chunking, embedding, pgvector storage, hybrid search with reranking, evaluation via RAGAS.',skills:['FastAPI','pgvector','Langfuse','RAGAS','Pydantic']},
+  {module:'MOD 08',moduleColor:'#0a8a5e',name:'Multi-Agent Underwriting Platform',desc:'Autonomous agents that ingest insurance applications, call external data tools, collaborate via LangGraph, and produce structured risk assessments with audit trails.',skills:['LangGraph','CrewAI','Tool Use','PostgreSQL','Langfuse']},
+  {module:'MOD 08',moduleColor:'#0a8a5e',name:'Autonomous Research Assistant',desc:'A planner-executor-critic agent loop that decomposes research questions, searches the web, synthesises findings, and self-critiques before returning final answers.',skills:['LangGraph','Web Search','Reflection','Memory','FastAPI']},
+  {module:'MOD 09',moduleColor:'#9b1aff',name:'Real-Time Call Summarisation Platform',desc:'Streams live call audio through Whisper ASR, extracts structured summaries and action items with a fine-tuned model, delivers results via WebSockets. Sub-2s latency.',skills:['ASR','WebSockets','Redis Streams','K8s','Langfuse']},
+  {module:'MOD 11',moduleColor:'#c0392b',name:'Fine-Tuned Domain LLM',desc:'QLoRA fine-tune a 7B model on domain-specific data, evaluate against base model with MMLU and custom evals, quantise to GGUF for local inference with Ollama.',skills:['QLoRA','PEFT','GGUF','Ollama','DeepEval']},
+  {module:'MOD 12',moduleColor:'#1a0aff',name:'AI Operating System Layer',desc:'A unified AI gateway with model routing, rate limiting, cost tracking, streaming, caching, and a React dashboard. The infrastructure layer every AI product needs.',skills:['FastAPI','Redis','PostgreSQL','React','Docker']},
+];
+const pg = document.getElementById('projectsGrid');
+projects.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'proj-card';
+  el.innerHTML = `
+    <div class="proj-head">
+      <span class="proj-module" style="background:${p.moduleColor}22;color:${p.moduleColor}">${p.module}</span>
+      <span class="proj-name">${p.name}</span>
+    </div>
+    <div class="proj-body">
+      <p class="proj-desc">${p.desc}</p>
+      <div class="proj-skills">${p.skills.map(s=>`<span class="proj-skill">${s}</span>`).join('')}</div>
+    </div>`;
+  pg.appendChild(el);
+});
+</script>
+</body>
+</html>
