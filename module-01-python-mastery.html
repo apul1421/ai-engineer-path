@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 01 — Python Engineering Mastery | AI Engineer Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;--ink2:#2a2a3a;--ink3:#6a6a7a;--ink4:#a0a0b0;
+  --surface:#f4f6f9;--white:#fff;
+  --accent:#1a0aff;--warm:#ff4d1c;--green:#0a8a5e;--gold:#c87c10;--purple:#7c3aed;
+  --border:rgba(10,10,15,0.1);--border2:rgba(10,10,15,0.05);
+  --code-bg:#0d1117;--code-surf:#161b22;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--surface);color:var(--ink);line-height:1.6}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(244,246,249,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.logo-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
+.nav-crumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3)}
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-link{font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none}
+.nav-link:hover{color:var(--ink)}
+.nav-btn{background:var(--ink);color:white;padding:7px 15px;border-radius:3px;font-size:12px;font-weight:600;text-decoration:none}
+.nav-btn:hover{background:var(--accent)}
+
+/* HERO */
+.hero{padding:5rem 2.5rem 4rem;background:var(--ink);color:white;position:relative;overflow:hidden;border-bottom:2px solid var(--accent)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(26,10,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(26,10,255,0.07) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-glow{position:absolute;left:-80px;top:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,10,255,0.18) 0%,transparent 65%);pointer-events:none}
+.hero-bg-num{position:absolute;right:-20px;bottom:-50px;font-size:24rem;font-weight:800;color:rgba(255,255,255,0.022);line-height:1;letter-spacing:-0.05em;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:800px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(107,126,255,0.9);background:rgba(26,10,255,0.12);border:1px solid rgba(26,10,255,0.22);padding:5px 14px;border-radius:20px;margin-bottom:1.8rem}
+h1.hero-title{font-size:clamp(2.8rem,5.5vw,5rem);font-weight:800;letter-spacing:-0.045em;line-height:1;margin-bottom:1.2rem;color:white}
+h1.hero-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#6b7eff}
+.hero-desc{font-size:17px;color:rgba(255,255,255,0.55);max-width:580px;line-height:1.75;margin-bottom:2rem}
+.hero-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:2.5rem}
+.pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 12px;border-radius:3px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.08)}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap}
+.hs-val{font-size:1.8rem;font-weight:800;letter-spacing:-0.04em;color:white;line-height:1}
+.hs-key{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px}
+
+/* LAYOUT */
+.page-body{display:flex;max-width:1280px;margin:0 auto}
+.sidebar{width:250px;min-width:250px;padding:1.8rem 1.4rem;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white)}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.sb-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px}
+.sb-link{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;padding:5px 8px;border-radius:4px;margin-bottom:2px;border-left:2px solid transparent;transition:all 0.12s}
+.sb-link:hover{color:var(--ink);background:var(--surface)}
+.sb-link.active{color:var(--accent);border-left-color:var(--accent);background:rgba(26,10,255,0.04)}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background 0.12s}
+.sb-link.active .sb-dot{background:var(--accent)}
+.prog-wrap{background:var(--surface);border-radius:6px;padding:12px;margin-top:1rem}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:6px}
+.prog-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3)}
+.prog-pct{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600}
+.prog-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;width:0;transition:width 0.4s ease}
+.main-content{flex:1;min-width:0;background:var(--white)}
+
+/* LESSONS */
+.lesson{padding:3rem 3.5rem;border-bottom:1px solid var(--border2)}
+.l-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.l-eye .num{background:var(--accent);color:white;padding:2px 8px;border-radius:2px;font-size:10px}
+h2.l-title{font-size:2rem;font-weight:800;letter-spacing:-0.035em;line-height:1.1;margin-bottom:0.9rem}
+h2.l-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.l-intro{font-size:15px;color:var(--ink2);line-height:1.8;margin-bottom:2rem;max-width:680px}
+h3.sub{font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;margin:2.2rem 0 0.7rem;display:flex;align-items:center;gap:10px}
+h3.sub .stag{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--surface);color:var(--ink3);padding:3px 8px;border-radius:3px;font-weight:500}
+p.body{font-size:14.5px;color:var(--ink2);line-height:1.82;margin-bottom:1rem}
+
+/* CODE */
+.cb{background:var(--code-bg);border-radius:8px;margin:1.4rem 0;overflow:hidden;border:1px solid rgba(255,255,255,0.05);box-shadow:0 4px 24px rgba(0,0,0,0.25)}
+.cb-head{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--code-surf);border-bottom:1px solid rgba(255,255,255,0.05)}
+.dots{display:flex;gap:5px}
+.d{width:10px;height:10px;border-radius:50%}.dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
+.cb-fname{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);flex:1;text-align:center}
+.cb-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(26,10,255,0.7);letter-spacing:0.06em;text-transform:uppercase}
+pre{padding:1.4rem 1.6rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;color:#c9d1d9}
+pre::-webkit-scrollbar{height:4px}
+pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1)}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.st{color:#a5d6ff}.cm{color:#6e7681;font-style:italic}
+.va{color:#ffa657}.nu{color:#f0883e}.de{color:#79c0ff}.bi{color:#ffa657}.cl{color:#ffa657}.mg{color:#3fb950}
+
+/* CALLOUT */
+.callout{border-radius:6px;padding:1rem 1.3rem;margin:1.4rem 0;display:flex;gap:14px}
+.c-info{background:#eef4ff;border-left:3px solid var(--accent)}
+.c-tip{background:#eefaf5;border-left:3px solid var(--green)}
+.c-warn{background:#fff8ee;border-left:3px solid var(--gold)}
+.c-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.c-body{font-size:13.5px;color:var(--ink2);line-height:1.7}
+.c-body strong{color:var(--ink);font-weight:700}
+.c-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(0,0,0,0.07);padding:1px 5px;border-radius:3px}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:13px;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.tbl th{text-align:left;padding:10px 14px;background:var(--code-bg);color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--border2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(26,10,255,0.02)}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px;font-weight:500}
+.tb{background:#eef4ff;color:var(--accent)}.tg{background:#eefaf5;color:var(--green)}.tp{background:#f5f0ff;color:var(--purple)}
+
+/* SCHEMA VIZ */
+.schema{background:var(--code-bg);border-radius:8px;padding:1.5rem;margin:1.4rem 0;border:1px solid rgba(255,255,255,0.05)}
+.schema-ttl{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1rem}
+.sf{display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.sf:last-child{border-bottom:none}
+.sf-n{font-family:'JetBrains Mono',monospace;font-size:12px;color:#d2a8ff;min-width:130px}
+.sf-t{font-family:'JetBrains Mono',monospace;font-size:11px;color:#79c0ff}
+.sf-r{font-size:11px;color:rgba(255,255,255,0.35);flex:1}
+.sf-req{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;border-radius:2px}
+.req{background:rgba(255,77,28,0.2);color:#ff7b72}.opt{background:rgba(10,138,94,0.2);color:#3fb950}
+
+/* PROJECTS */
+.proj-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:1.2rem 0}
+.proj-head{padding:1rem 1.5rem;background:var(--code-bg);display:flex;align-items:center;gap:12px}
+.proj-badge{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--accent);color:white;padding:4px 10px;border-radius:2px;letter-spacing:0.06em}
+.proj-name{font-size:15px;font-weight:700;color:white;letter-spacing:-0.02em}
+.proj-body{padding:1.4rem 1.5rem}
+.proj-desc{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:1rem}
+.feats{list-style:none;display:flex;flex-direction:column;gap:5px}
+.feats li{font-size:13px;color:var(--ink2);display:flex;align-items:baseline;gap:8px}
+.feats li::before{content:'→';color:var(--accent);font-size:11px;flex-shrink:0}
+
+/* INTERVIEW */
+.interview{background:var(--code-bg);padding:3.5rem;border-top:3px solid var(--accent)}
+.int-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.int-title{font-size:2rem;font-weight:800;letter-spacing:-0.04em;color:white}
+.int-sub{font-size:13px;color:rgba(255,255,255,0.35);margin-top:4px;font-family:'JetBrains Mono',monospace;margin-bottom:2.5rem}
+.q-block{margin-bottom:10px}
+.q-row{display:flex;align-items:center;gap:14px;cursor:pointer;padding:1rem 1.2rem;background:var(--code-surf);border-radius:6px;border:1px solid rgba(255,255,255,0.04);transition:border-color 0.15s}
+.q-row:hover{border-color:rgba(26,10,255,0.5)}
+.q-row.open{border-color:var(--accent);border-bottom-left-radius:0;border-bottom-right-radius:0}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);min-width:26px;font-weight:600}
+.q-text{font-size:13.5px;font-weight:600;color:#e6edf3;flex:1;line-height:1.5}
+.q-diff{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:2px;flex-shrink:0}
+.d-easy{background:rgba(10,138,94,0.2);color:#3fb950}
+.d-med{background:rgba(200,124,16,0.2);color:#fbbf24}
+.d-hard{background:rgba(26,10,255,0.2);color:#818cf8}
+.q-chev{font-size:12px;color:rgba(255,255,255,0.25);flex-shrink:0;transition:transform 0.2s}
+.q-row.open .q-chev{transform:rotate(90deg);color:var(--accent)}
+.q-ans{display:none;background:rgba(26,10,255,0.05);border:1px solid rgba(26,10,255,0.25);border-top:none;border-radius:0 0 6px 6px;padding:1.2rem 1.4rem}
+.q-ans.show{display:block}
+.q-ans p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;margin-bottom:0.6rem}
+.q-ans p:last-child{margin-bottom:0}
+.q-ans code{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:3px;color:#a5d6ff}
+.q-ans strong{color:rgba(255,255,255,0.88);font-weight:600}
+
+/* MODULE FOOTER */
+.mod-footer{padding:2.5rem 3.5rem;border-top:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mf-badge{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--surface);padding:8px 16px;border-radius:20px;color:var(--ink3);border:1px solid var(--border)}
+.mf-nav{display:flex;gap:10px}
+.mf-btn{padding:12px 22px;border-radius:4px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;display:inline-block;transition:all 0.15s}
+.mf-prev{background:transparent;color:var(--ink);border:1px solid var(--border)}.mf-prev:hover{background:var(--ink);color:white}
+.mf-next{background:var(--ink);color:white;border:1px solid var(--ink)}.mf-next:hover{background:var(--accent);border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-dot"></span>AI Engineer Path</a>
+  <div class="nav-crumb">MODULE 01 &rsaquo; Python Engineering Mastery</div>
+  <div class="nav-links">
+    <a href="#interview" class="nav-link">Interview Q&amp;A</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="module-00-cs-foundations.html" class="nav-btn">&larr; Mod 00</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-bg-num">01</div>
+  <div class="hero-inner">
+    <div class="hero-tag">MODULE 01 &middot; PYTHON ENGINEERING MASTERY</div>
+    <h1 class="hero-title">Python for<br><em>Enterprise</em> AI</h1>
+    <p class="hero-desc">From writing scripts to engineering systems. Async, generators, decorators, Pydantic, concurrency, profiling &mdash; the Python that actually runs in production AI companies.</p>
+    <div class="hero-pills">
+      <span class="pill">asyncio</span><span class="pill">generators</span><span class="pill">decorators</span>
+      <span class="pill">context managers</span><span class="pill">Pydantic v2</span><span class="pill">pytest</span>
+      <span class="pill">multiprocessing</span><span class="pill">profiling</span><span class="pill">functools</span>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hs-val">~18h</div><div class="hs-key">Duration</div></div>
+      <div><div class="hs-val">4</div><div class="hs-key">Projects</div></div>
+      <div><div class="hs-val">14</div><div class="hs-key">Interview Qs</div></div>
+      <div><div class="hs-val">Intermediate</div><div class="hs-key">Level</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+<aside class="sidebar">
+  <div class="sb-label" style="margin-bottom:10px">Contents</div>
+  <a class="sb-link active" href="#s1"><span class="sb-dot"></span>1. Advanced Functions</a>
+  <a class="sb-link" href="#s2"><span class="sb-dot"></span>2. Generators &amp; Iterators</a>
+  <a class="sb-link" href="#s3"><span class="sb-dot"></span>3. Decorators</a>
+  <a class="sb-link" href="#s4"><span class="sb-dot"></span>4. Context Managers</a>
+  <a class="sb-link" href="#s5"><span class="sb-dot"></span>5. Functional Programming</a>
+  <a class="sb-link" href="#s6"><span class="sb-dot"></span>6. Async &amp; Concurrency</a>
+  <a class="sb-link" href="#s7"><span class="sb-dot"></span>7. Pydantic v2</a>
+  <a class="sb-link" href="#s8"><span class="sb-dot"></span>8. Enterprise Patterns</a>
+  <a class="sb-link" href="#s9"><span class="sb-dot"></span>9. Testing</a>
+  <a class="sb-link" href="#s10"><span class="sb-dot"></span>10. Profiling &amp; Optimisation</a>
+  <a class="sb-link" href="#projects"><span class="sb-dot"></span>11. Projects</a>
+  <a class="sb-link" href="#interview"><span class="sb-dot"></span>12. Interview Q&amp;A</a>
+  <div class="prog-wrap">
+    <div class="prog-top"><span class="prog-lbl">PROGRESS</span><span class="prog-pct" id="pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="fill"></div></div>
+  </div>
+</aside>
+<main class="main-content">
+
+<!-- S1: ADVANCED FUNCTIONS -->
+<section class="lesson" id="s1">
+  <div class="l-eye"><span class="num">01</span> Advanced Functions</div>
+  <h2 class="l-title">Functions as <em>First-Class Objects</em></h2>
+  <p class="l-intro">In Python, functions are objects. You can pass them as arguments, return them from other functions, and store them in data structures. This is the foundation of decorators, callbacks, and every AI framework's plugin system.</p>
+
+  <h3 class="sub">Lambda, map, filter, sorted <span class="stag">functional tools</span></h3>
+  <p class="body">Lambdas are anonymous one-liners. <code style="font-family:JetBrains Mono,monospace;font-size:13px;background:var(--surface);padding:1px 5px;border-radius:3px">map</code> and <code style="font-family:JetBrains Mono,monospace;font-size:13px;background:var(--surface);padding:1px 5px;border-radius:3px">filter</code> apply functions lazily to iterables. In AI code they appear constantly in data preprocessing pipelines.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">lambda_map_filter.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="cm"># Lambda: anonymous one-expression function</span>
+to_lower  = <span class="kw">lambda</span> s: s.lower().strip()
+clamp     = <span class="kw">lambda</span> x, lo, hi: <span class="bi">max</span>(lo, <span class="bi">min</span>(hi, x))
+
+<span class="cm"># map — lazy iterator; wrap in list() to evaluate</span>
+raw   = [<span class="st">"  Hello World  "</span>, <span class="st">"  RAG Systems  "</span>, <span class="st">"LangChain "</span>]
+clean = <span class="bi">list</span>(<span class="bi">map</span>(to_lower, raw))          <span class="cm"># ['hello world', 'rag systems', 'langchain']</span>
+
+<span class="cm"># filter — keep elements where predicate is True</span>
+scores    = [<span class="nu">0.91</span>, <span class="nu">0.43</span>, <span class="nu">0.88</span>, <span class="nu">0.31</span>, <span class="nu">0.76</span>]
+high_conf = <span class="bi">list</span>(<span class="bi">filter</span>(<span class="kw">lambda</span> s: s > <span class="nu">0.75</span>, scores))    <span class="cm"># [0.91, 0.88, 0.76]</span>
+
+<span class="cm"># sorted with key — rank retrieved chunks by relevance</span>
+chunks   = [(<span class="st">"doc_a"</span>, <span class="nu">0.82</span>), (<span class="st">"doc_b"</span>, <span class="nu">0.91</span>), (<span class="st">"doc_c"</span>, <span class="nu">0.77</span>)]
+top_docs = sorted(chunks, key=<span class="kw">lambda</span> d: d[<span class="nu">1</span>], reverse=<span class="kw">True</span>)
+<span class="cm"># [('doc_b', 0.91), ('doc_a', 0.82), ('doc_c', 0.77)]</span>
+
+<span class="cm"># Prefer list comprehensions for readability in most cases</span>
+high_conf2 = [s <span class="kw">for</span> s <span class="kw">in</span> scores <span class="kw">if</span> s > <span class="nu">0.75</span>]   <span class="cm"># same result, clearer</span></pre>
+  </div>
+
+  <h3 class="sub">Closures &mdash; state without classes <span class="stag">factory pattern</span></h3>
+  <p class="body">A closure is a function that captures variables from its enclosing scope. This creates stateful functions without a full class &mdash; used in factory patterns, middleware, and pre-configured model callers.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">closures.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="cm"># Closure: 'threshold' is captured from the outer scope</span>
+<span class="kw">def</span> <span class="fn">make_threshold_filter</span>(threshold: <span class="bi">float</span>):
+    <span class="kw">def</span> <span class="fn">filter_fn</span>(score: <span class="bi">float</span>) -> <span class="bi">bool</span>:
+        <span class="kw">return</span> score >= threshold   <span class="cm"># threshold is closed over</span>
+    <span class="kw">return</span> filter_fn               <span class="cm"># return the function itself</span>
+
+high_quality   = make_threshold_filter(<span class="nu">0.85</span>)
+medium_quality = make_threshold_filter(<span class="nu">0.65</span>)
+
+results = [<span class="nu">0.91</span>, <span class="nu">0.70</span>, <span class="nu">0.55</span>, <span class="nu">0.88</span>]
+<span class="bi">print</span>([r <span class="kw">for</span> r <span class="kw">in</span> results <span class="kw">if</span> high_quality(r)])     <span class="cm"># [0.91, 0.88]</span>
+<span class="bi">print</span>([r <span class="kw">for</span> r <span class="kw">in</span> results <span class="kw">if</span> medium_quality(r)])   <span class="cm"># [0.91, 0.70, 0.88]</span>
+
+<span class="cm"># Real AI use: pre-configured model callers per provider</span>
+<span class="kw">def</span> <span class="fn">make_model_caller</span>(model_name: <span class="bi">str</span>, temperature: <span class="bi">float</span> = <span class="nu">0.7</span>):
+    <span class="kw">def</span> <span class="fn">call</span>(prompt: <span class="bi">str</span>) -> <span class="bi">str</span>:
+        <span class="kw">return</span> llm.complete(prompt, model=model_name, temp=temperature)
+    <span class="kw">return</span> call
+
+creative_claude = make_model_caller(<span class="st">"claude-sonnet-4-6"</span>, temperature=<span class="nu">1.0</span>)
+precise_gpt     = make_model_caller(<span class="st">"gpt-4o"</span>,           temperature=<span class="nu">0.0</span>)
+
+<span class="cm"># *args and **kwargs — accept any positional/keyword arguments</span>
+<span class="kw">def</span> <span class="fn">log_and_call</span>(func, *args, **kwargs):
+    <span class="bi">print</span>(<span class="st">f"Calling {func.__name__} with {args}, {kwargs}"</span>)
+    <span class="kw">return</span> func(*args, **kwargs)
+
+<span class="cm"># Useful for building middleware wrappers around any function</span></pre>
+  </div>
+</section>
+
+<!-- S2: GENERATORS -->
+<section class="lesson" id="s2">
+  <div class="l-eye"><span class="num">02</span> Generators &amp; Iterators</div>
+  <h2 class="l-title">Memory-Efficient <em>Data Pipelines</em></h2>
+  <p class="l-intro">The single most important concept for AI data engineering. A generator processes one item at a time &mdash; constant memory regardless of dataset size. Every production ML pipeline: PyTorch DataLoader, HuggingFace datasets, LangChain document loaders &mdash; is built on this pattern.</p>
+
+  <h3 class="sub">Generator functions with yield <span class="stag">lazy evaluation</span></h3>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">generators.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">import</span> json
+<span class="kw">from</span> typing <span class="kw">import</span> Generator, Iterator
+
+<span class="cm"># Generator function: reads one line at a time, never loads full file</span>
+<span class="kw">def</span> <span class="fn">stream_jsonl</span>(filepath: <span class="bi">str</span>) -> <span class="mg">Generator</span>[dict, <span class="kw">None</span>, <span class="kw">None</span>]:
+    <span class="kw">with</span> <span class="bi">open</span>(filepath) <span class="kw">as</span> f:
+        <span class="kw">for</span> line <span class="kw">in</span> f:
+            <span class="kw">if</span> line.strip():
+                <span class="kw">yield</span> json.loads(line)    <span class="cm"># suspend; caller gets value; then resume</span>
+
+<span class="cm"># Chained generators — compose a lazy pipeline</span>
+<span class="kw">def</span> <span class="fn">clean_docs</span>(docs: <span class="mg">Iterator</span>[dict]) -> <span class="mg">Generator</span>[dict, <span class="kw">None</span>, <span class="kw">None</span>]:
+    <span class="kw">for</span> doc <span class="kw">in</span> docs:
+        doc[<span class="st">"text"</span>] = doc[<span class="st">"text"</span>].strip().lower()
+        <span class="kw">if</span> <span class="bi">len</span>(doc[<span class="st">"text"</span>]) > <span class="nu">50</span>:
+            <span class="kw">yield</span> doc
+
+<span class="kw">def</span> <span class="fn">chunk_docs</span>(docs: <span class="mg">Iterator</span>[dict], size: <span class="bi">int</span> = <span class="nu">512</span>) -> <span class="mg">Generator</span>[dict, <span class="kw">None</span>, <span class="kw">None</span>]:
+    <span class="kw">for</span> doc <span class="kw">in</span> docs:
+        words = doc[<span class="st">"text"</span>].split()
+        <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nu">0</span>, <span class="bi">len</span>(words), size):
+            <span class="kw">yield</span> {**doc, <span class="st">"chunk"</span>: <span class="st">" "</span>.join(words[i:i+size]), <span class="st">"idx"</span>: i // size}
+
+<span class="cm"># Compose the pipeline — nothing executes until you iterate</span>
+raw    = stream_jsonl(<span class="st">"corpus.jsonl"</span>)   <span class="cm"># generator: lazy file read</span>
+clean  = clean_docs(raw)                <span class="cm"># generator: lazy filter+clean</span>
+chunks = chunk_docs(clean)              <span class="cm"># generator: lazy chunking</span>
+
+<span class="kw">for</span> chunk <span class="kw">in</span> chunks:
+    embed_and_store(chunk)   <span class="cm"># ONE chunk processed at a time: O(1) memory for 10GB corpus</span>
+
+<span class="cm"># Generator expression — concise one-liner generators</span>
+token_lengths = (len(tokenise(doc[<span class="st">"text"</span>])) <span class="kw">for</span> doc <span class="kw">in</span> raw_docs)
+avg_tokens    = <span class="bi">sum</span>(token_lengths) / total_docs   <span class="cm"># computed lazily</span></pre>
+  </div>
+
+  <div class="callout c-tip">
+    <span class="c-icon">&#128161;</span>
+    <div class="c-body"><strong>Production rule:</strong> Any function reading from disk, calling an API in a loop, or processing large datasets should return a generator &mdash; never a list. PyTorch DataLoader, HuggingFace datasets streaming, every RAG document loader in Module 07 uses this pattern. Memory savings: gigabytes &rarr; kilobytes.</div>
+  </div>
+
+  <h3 class="sub">The iterator protocol <span class="stag">__iter__ and __next__</span></h3>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">custom_iterator.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="cm"># Custom iterator: sliding window over a token stream</span>
+<span class="kw">class</span> <span class="cl">TokenWindow</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, tokens: list[<span class="bi">int</span>], window: <span class="bi">int</span>, stride: <span class="bi">int</span>):
+        <span class="va">self</span>.tokens = tokens
+        <span class="va">self</span>.window = window
+        <span class="va">self</span>.stride = stride
+        <span class="va">self</span>._pos   = <span class="nu">0</span>
+
+    <span class="kw">def</span> <span class="fn">__iter__</span>(<span class="va">self</span>):   <span class="cm"># called by for loop — return self for stateful iteration</span>
+        <span class="va">self</span>._pos = <span class="nu">0</span>
+        <span class="kw">return</span> <span class="va">self</span>
+
+    <span class="kw">def</span> <span class="fn">__next__</span>(<span class="va">self</span>):   <span class="cm"># called each iteration; raise StopIteration when done</span>
+        <span class="kw">if</span> <span class="va">self</span>._pos >= <span class="bi">len</span>(<span class="va">self</span>.tokens):
+            <span class="kw">raise</span> <span class="bi">StopIteration</span>
+        chunk      = <span class="va">self</span>.tokens[<span class="va">self</span>._pos : <span class="va">self</span>._pos + <span class="va">self</span>.window]
+        <span class="va">self</span>._pos += <span class="va">self</span>.stride
+        <span class="kw">return</span> chunk
+
+tokens = <span class="bi">list</span>(<span class="bi">range</span>(<span class="nu">20</span>))
+<span class="kw">for</span> window <span class="kw">in</span> <span class="cl">TokenWindow</span>(tokens, window=<span class="nu">5</span>, stride=<span class="nu">3</span>):
+    <span class="bi">print</span>(window)   <span class="cm"># [0,1,2,3,4]  [3,4,5,6,7]  [6,7,8,9,10] ...</span></pre>
+  </div>
+</section>
+
+<!-- S3: DECORATORS -->
+<section class="lesson" id="s3">
+  <div class="l-eye"><span class="num">03</span> Decorators</div>
+  <h2 class="l-title">Decorators &mdash; <em>Cross-Cutting Concerns</em></h2>
+  <p class="l-intro">A decorator wraps a function to add behaviour without modifying its code. This is how you add retry logic, caching, rate-limiting, and logging to AI API calls &mdash; once, cleanly, and reusably across your entire codebase.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">production_decorators.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">import</span> functools, time, logging
+<span class="kw">from</span> typing <span class="kw">import</span> Callable, TypeVar
+F = TypeVar(<span class="st">'F'</span>, bound=Callable)
+
+<span class="cm"># 1. Retry with exponential backoff — essential for every LLM API call</span>
+<span class="kw">def</span> <span class="fn">retry</span>(max_attempts: <span class="bi">int</span> = <span class="nu">3</span>, exceptions: <span class="bi">tuple</span> = (<span class="bi">Exception</span>,)):
+    <span class="kw">def</span> <span class="fn">decorator</span>(func: F) -> F:
+        <span class="de">@functools.wraps</span>(func)   <span class="cm"># preserves __name__, __doc__ — ALWAYS include this</span>
+        <span class="kw">def</span> <span class="fn">wrapper</span>(*args, **kwargs):
+            <span class="kw">for</span> attempt <span class="kw">in</span> <span class="bi">range</span>(<span class="nu">1</span>, max_attempts + <span class="nu">1</span>):
+                <span class="kw">try</span>:
+                    <span class="kw">return</span> func(*args, **kwargs)
+                <span class="kw">except</span> exceptions <span class="kw">as</span> e:
+                    <span class="kw">if</span> attempt == max_attempts: <span class="kw">raise</span>
+                    wait = <span class="nu">2</span> ** attempt
+                    logging.warning(<span class="st">f"Attempt {attempt} failed ({e}), retrying in {wait}s"</span>)
+                    time.sleep(wait)
+        <span class="kw">return</span> wrapper  <span class="cm"># type: ignore</span>
+    <span class="kw">return</span> decorator
+
+<span class="cm"># 2. TTL cache — avoid re-computing identical embeddings</span>
+<span class="kw">def</span> <span class="fn">cache_ttl</span>(seconds: <span class="bi">int</span> = <span class="nu">300</span>):
+    <span class="kw">def</span> <span class="fn">decorator</span>(func: F) -> F:
+        _cache: dict = {}
+        <span class="de">@functools.wraps</span>(func)
+        <span class="kw">def</span> <span class="fn">wrapper</span>(*args, **kwargs):
+            key = (args, <span class="bi">tuple</span>(sorted(kwargs.items())))
+            <span class="kw">if</span> key <span class="kw">in</span> _cache:
+                val, ts = _cache[key]
+                <span class="kw">if</span> time.time() - ts < seconds: <span class="kw">return</span> val
+            result = func(*args, **kwargs)
+            _cache[key] = (result, time.time())
+            <span class="kw">return</span> result
+        <span class="kw">return</span> wrapper  <span class="cm"># type: ignore</span>
+    <span class="kw">return</span> decorator
+
+<span class="cm"># 3. Rate limiter — respect provider limits (e.g. 60 req/min on free tier)</span>
+<span class="kw">def</span> <span class="fn">rate_limit</span>(calls_per_minute: <span class="bi">int</span>):
+    min_gap    = <span class="nu">60.0</span> / calls_per_minute
+    last_call  = [<span class="nu">0.0</span>]   <span class="cm"># list so closure can mutate it</span>
+    <span class="kw">def</span> <span class="fn">decorator</span>(func: F) -> F:
+        <span class="de">@functools.wraps</span>(func)
+        <span class="kw">def</span> <span class="fn">wrapper</span>(*args, **kwargs):
+            gap = time.time() - last_call[<span class="nu">0</span>]
+            <span class="kw">if</span> gap < min_gap: time.sleep(min_gap - gap)
+            last_call[<span class="nu">0</span>] = time.time()
+            <span class="kw">return</span> func(*args, **kwargs)
+        <span class="kw">return</span> wrapper  <span class="cm"># type: ignore</span>
+    <span class="kw">return</span> decorator
+
+<span class="cm"># Stack decorators — applied bottom-up, outermost runs first</span>
+<span class="de">@retry</span>(max_attempts=<span class="nu">4</span>, exceptions=(<span class="bi">ConnectionError</span>, <span class="bi">TimeoutError</span>))
+<span class="de">@rate_limit</span>(<span class="nu">60</span>)
+<span class="de">@cache_ttl</span>(<span class="nu">600</span>)
+<span class="kw">def</span> <span class="fn">get_embedding</span>(text: <span class="bi">str</span>) -> list[<span class="bi">float</span>]:
+    <span class="kw">return</span> openai.embeddings.create(input=text).data[<span class="nu">0</span>].embedding
+<span class="cm"># Execution: check cache → rate limit → retry on failure → API call</span></pre>
+  </div>
+  <div class="callout c-info">
+    <span class="c-icon">&#128273;</span>
+    <div class="c-body"><strong>Always use @functools.wraps(func).</strong> Without it, your wrapper replaces the decorated function's <code>__name__</code>, <code>__doc__</code>, and <code>__module__</code>. This breaks FastAPI route identification, stack traces, logging, and documentation tools. It's one line &mdash; no excuse to skip it.</div>
+  </div>
+</section>
+
+<!-- S4: CONTEXT MANAGERS -->
+<section class="lesson" id="s4">
+  <div class="l-eye"><span class="num">04</span> Context Managers</div>
+  <h2 class="l-title">Context Managers &amp; <em>Resource Safety</em></h2>
+  <p class="l-intro">Context managers guarantee cleanup &mdash; files close, connections release, GPU memory frees &mdash; even when exceptions occur. In AI systems this means database connections, model sessions, GPU memory, and transaction scopes.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">context_managers.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">from</span> contextlib <span class="kw">import</span> contextmanager, asynccontextmanager
+<span class="kw">import</span> time, logging
+
+<span class="cm"># Method 1: Class with __enter__ / __exit__</span>
+<span class="kw">class</span> <span class="cl">ModelSession</span>:
+    <span class="st">'''Loads model to GPU on enter, frees memory on exit.'''</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, model_name: <span class="bi">str</span>):
+        <span class="va">self</span>.model_name = model_name
+
+    <span class="kw">def</span> <span class="fn">__enter__</span>(<span class="va">self</span>):
+        <span class="va">self</span>.model = load_model(<span class="va">self</span>.model_name)
+        <span class="kw">return</span> <span class="va">self</span>.model         <span class="cm"># bound to 'as model'</span>
+
+    <span class="kw">def</span> <span class="fn">__exit__</span>(<span class="va">self</span>, exc_type, exc_val, exc_tb):
+        <span class="kw">del</span> <span class="va">self</span>.model             <span class="cm"># runs even if exception raised inside with block</span>
+        <span class="kw">return</span> <span class="kw">False</span>              <span class="cm"># False = don't suppress the exception</span>
+
+<span class="kw">with</span> <span class="cl">ModelSession</span>(<span class="st">"llama-3-8b"</span>) <span class="kw">as</span> model:
+    embeddings = model.encode(texts)   <span class="cm"># GPU freed when block exits, error or not</span>
+
+<span class="cm"># Method 2: @contextmanager — cleaner for simple one-shot resources</span>
+<span class="de">@contextmanager</span>
+<span class="kw">def</span> <span class="fn">timer</span>(label: <span class="bi">str</span>):
+    start = time.perf_counter()
+    <span class="kw">try</span>:
+        <span class="kw">yield</span>                           <span class="cm"># execution enters the 'with' block here</span>
+    <span class="kw">finally</span>:                            <span class="cm"># always runs — exception or not</span>
+        logging.info(<span class="st">f"[{label}] {time.perf_counter()-start:.3f}s"</span>)
+
+<span class="kw">with</span> timer(<span class="st">"embedding batch"</span>):
+    embeddings = model.encode(texts)
+
+<span class="cm"># Method 3: Async context manager — for async database transactions</span>
+<span class="de">@asynccontextmanager</span>
+<span class="kw">async def</span> <span class="fn">db_transaction</span>(pool):
+    conn = <span class="kw">await</span> pool.acquire()
+    tx   = <span class="kw">await</span> conn.transaction()
+    <span class="kw">try</span>:
+        <span class="kw">yield</span> conn
+        <span class="kw">await</span> tx.commit()
+    <span class="kw">except</span> <span class="bi">Exception</span>:
+        <span class="kw">await</span> tx.rollback()            <span class="cm"># always rollback on any error</span>
+        <span class="kw">raise</span>
+    <span class="kw">finally</span>:
+        <span class="kw">await</span> pool.release(conn)
+
+<span class="kw">async with</span> db_transaction(pg_pool) <span class="kw">as</span> conn:
+    <span class="kw">await</span> conn.execute(<span class="st">"INSERT INTO embeddings VALUES ($1, $2)"</span>, doc_id, vec)</pre>
+  </div>
+</section>
+
+<!-- S5: FUNCTIONAL -->
+<section class="lesson" id="s5">
+  <div class="l-eye"><span class="num">05</span> Functional Programming</div>
+  <h2 class="l-title"><em>Functional</em> Patterns in AI Pipelines</h2>
+  <p class="l-intro">Functional programming treats computation as pure functions &mdash; no side effects, immutable data. This style composes naturally and is trivially testable. AI preprocessing pipelines are almost always written this way.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">functional.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">from</span> functools <span class="kw">import</span> reduce, partial, lru_cache
+<span class="kw">from</span> typing <span class="kw">import</span> Callable
+
+<span class="cm"># partial — pre-fill arguments; creates a new callable</span>
+<span class="kw">def</span> <span class="fn">chunk_text</span>(text: <span class="bi">str</span>, size: <span class="bi">int</span>, overlap: <span class="bi">int</span>) -> list[<span class="bi">str</span>]: ...
+
+chunk_512  = partial(chunk_text, size=<span class="nu">512</span>,  overlap=<span class="nu">50</span>)
+chunk_1024 = partial(chunk_text, size=<span class="nu">1024</span>, overlap=<span class="nu">100</span>)
+
+<span class="cm"># reduce — fold a sequence to a single value</span>
+configs = [{<span class="st">"temp"</span>: <span class="nu">0.7</span>}, {<span class="st">"top_p"</span>: <span class="nu">0.9</span>}, {<span class="st">"max_tokens"</span>: <span class="nu">1024</span>}]
+merged  = reduce(<span class="kw">lambda</span> a, b: {**a, **b}, configs)
+<span class="cm"># {"temp": 0.7, "top_p": 0.9, "max_tokens": 1024}</span>
+
+<span class="cm"># @lru_cache — memoize pure functions; O(1) on repeated calls</span>
+<span class="de">@lru_cache</span>(maxsize=<span class="nu">10_000</span>)
+<span class="kw">def</span> <span class="fn">tokenise</span>(text: <span class="bi">str</span>) -> <span class="bi">tuple</span>[<span class="bi">int</span>, ...]:   <span class="cm"># args must be hashable</span>
+    <span class="kw">return</span> <span class="bi">tuple</span>(tokeniser.encode(text))
+
+<span class="cm"># Function composition — build preprocessing pipelines declaratively</span>
+<span class="kw">def</span> <span class="fn">compose</span>(*fns: Callable) -> Callable:
+    <span class="st">'''compose(f, g, h)(x)  ==  h(g(f(x)))  -- left to right'''</span>
+    <span class="kw">return</span> <span class="kw">lambda</span> x: reduce(<span class="kw">lambda</span> v, f: f(v), fns, x)
+
+preprocess = compose(
+    <span class="kw">lambda</span> t: t.lower(),
+    <span class="kw">lambda</span> t: t.strip(),
+    <span class="kw">lambda</span> t: <span class="st">" "</span>.join(t.split()),     <span class="cm"># collapse whitespace</span>
+    <span class="kw">lambda</span> t: t.replace(<span class="st">"\n"</span>, <span class="st">" "</span>),
+)
+clean = preprocess(<span class="st">"  Hello\n  World  "</span>)   <span class="cm"># "hello world"</span>
+
+<span class="cm"># Immutable data with namedtuple / dataclass(frozen=True)</span>
+<span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass
+
+<span class="de">@dataclass</span>(frozen=<span class="kw">True</span>)   <span class="cm"># immutable; hashable; safe in caches</span>
+<span class="kw">class</span> <span class="cl">Chunk</span>:
+    doc_id: <span class="bi">str</span>
+    text:   <span class="bi">str</span>
+    index:  <span class="bi">int</span></pre>
+  </div>
+</section>
+
+<!-- S6: ASYNC -->
+<section class="lesson" id="s6">
+  <div class="l-eye"><span class="num">06</span> Async &amp; Concurrency</div>
+  <h2 class="l-title">Async Python &mdash; <em>The AI Superpower</em></h2>
+  <p class="l-intro">LLM API calls take 1&ndash;30 seconds each. Processed sequentially, 1,000 documents takes hours. With asyncio, all requests run concurrently. This is the single biggest performance lever in AI engineering.</p>
+
+  <h3 class="sub">Choose the right model <span class="stag">decision table</span></h3>
+  <table class="tbl">
+    <thead><tr><th>Model</th><th>Best For</th><th>Bypasses GIL?</th><th>AI Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tb">asyncio</span></td><td>I/O-bound: API calls, DB queries, file reads</td><td>Not needed</td><td>Calling LLM/embedding APIs; streaming RAG responses</td></tr>
+      <tr><td><span class="tag tp">threading</span></td><td>I/O-bound with legacy sync code</td><td>No</td><td>Wrapping sync SDK in a threaded FastAPI server</td></tr>
+      <tr><td><span class="tag tg">multiprocessing</span></td><td>CPU-bound: tokenisation, preprocessing</td><td>Yes</td><td>Parallel document preprocessing; CPU model inference</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">async_ai.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">import</span> asyncio
+<span class="kw">from</span> anthropic <span class="kw">import</span> AsyncAnthropic
+
+client = AsyncAnthropic()
+
+<span class="cm"># Basic async function</span>
+<span class="kw">async def</span> <span class="fn">summarise</span>(doc: <span class="bi">str</span>, doc_id: <span class="bi">str</span>) -> dict:
+    response = <span class="kw">await</span> client.messages.create(
+        model=<span class="st">"claude-sonnet-4-6"</span>, max_tokens=<span class="nu">256</span>,
+        messages=[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">f"Summarise in 3 sentences:\n{doc}"</span>}]
+    )
+    <span class="kw">return</span> {<span class="st">"id"</span>: doc_id, <span class="st">"summary"</span>: response.content[<span class="nu">0</span>].text}
+
+<span class="cm"># Semaphore — cap concurrent API calls to respect rate limits</span>
+<span class="kw">async def</span> <span class="fn">batch_summarise</span>(docs: list[dict], max_concurrent: <span class="bi">int</span> = <span class="nu">10</span>) -> list[dict]:
+    sem = asyncio.Semaphore(max_concurrent)
+
+    <span class="kw">async def</span> <span class="fn">limited</span>(doc: dict) -> dict:
+        <span class="kw">async with</span> sem:             <span class="cm"># at most 10 concurrent API calls</span>
+            <span class="kw">return await</span> summarise(doc[<span class="st">"text"</span>], doc[<span class="st">"id"</span>])
+
+    <span class="kw">return await</span> asyncio.gather(
+        *[limited(d) <span class="kw">for</span> d <span class="kw">in</span> docs],
+        return_exceptions=<span class="kw">True</span>    <span class="cm"># one failure doesn't cancel all others</span>
+    )
+
+<span class="cm"># Streaming — yield tokens as they arrive (used in RAG APIs)</span>
+<span class="kw">async def</span> <span class="fn">stream_answer</span>(prompt: <span class="bi">str</span>):
+    <span class="kw">async with</span> client.messages.stream(
+        model=<span class="st">"claude-sonnet-4-6"</span>, max_tokens=<span class="nu">1024</span>,
+        messages=[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}]
+    ) <span class="kw">as</span> stream:
+        <span class="kw">async for</span> token <span class="kw">in</span> stream.text_stream:
+            <span class="bi">print</span>(token, end=<span class="st">""</span>, flush=<span class="kw">True</span>)   <span class="cm"># real-time output</span>
+
+<span class="cm"># asyncio.Queue — producer/consumer pattern for large batches</span>
+<span class="kw">async def</span> <span class="fn">pipeline</span>(paths: list[<span class="bi">str</span>], workers: <span class="bi">int</span> = <span class="nu">5</span>):
+    queue: asyncio.Queue = asyncio.Queue(maxsize=<span class="nu">50</span>)
+
+    <span class="kw">async def</span> <span class="fn">producer</span>():
+        <span class="kw">for</span> p <span class="kw">in</span> paths: <span class="kw">await</span> queue.put(p)
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(workers): <span class="kw">await</span> queue.put(<span class="kw">None</span>)   <span class="cm"># sentinels</span>
+
+    <span class="kw">async def</span> <span class="fn">worker</span>():
+        <span class="kw">while True</span>:
+            path = <span class="kw">await</span> queue.get()
+            <span class="kw">if</span> path <span class="kw">is None</span>: <span class="kw">break</span>
+            <span class="kw">await</span> process_document(path)
+            queue.task_done()
+
+    <span class="kw">await</span> asyncio.gather(producer(), *[worker() <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(workers)])
+
+<span class="cm"># True CPU parallelism: ProcessPoolExecutor bypasses the GIL</span>
+<span class="kw">from</span> concurrent.futures <span class="kw">import</span> ProcessPoolExecutor
+<span class="kw">from</span> multiprocessing <span class="kw">import</span> cpu_count
+
+<span class="kw">def</span> <span class="fn">tokenise_doc</span>(text: <span class="bi">str</span>) -> list[<span class="bi">int</span>]:
+    <span class="kw">return</span> tokeniser.encode(text)   <span class="cm"># CPU-heavy; runs in separate process</span>
+
+<span class="kw">with</span> ProcessPoolExecutor(max_workers=cpu_count()) <span class="kw">as</span> pool:
+    all_tokens = <span class="bi">list</span>(pool.map(tokenise_doc, texts))   <span class="cm"># 8x on 8-core machine</span></pre>
+  </div>
+</section>
+
+<!-- S7: PYDANTIC -->
+<section class="lesson" id="s7">
+  <div class="l-eye"><span class="num">07</span> Pydantic v2</div>
+  <h2 class="l-title">Pydantic v2 &mdash; <em>Data That Can't Lie</em></h2>
+  <p class="l-intro">Pydantic enforces data contracts at runtime. In AI systems where LLMs return JSON, users send requests, and agents pass state between each other &mdash; invalid data causes silent bugs at 3am. Pydantic is your first line of defence.</p>
+
+  <div class="schema">
+    <div class="schema-ttl">LLMRequest Schema</div>
+    <div class="sf"><span class="sf-n">model</span><span class="sf-t">ModelChoice</span><span class="sf-r">Must be in allowed model list (enum)</span><span class="sf-req req">required</span></div>
+    <div class="sf"><span class="sf-n">messages</span><span class="sf-t">list[Message]</span><span class="sf-r">Min 1 item &bull; last must be role=user</span><span class="sf-req req">required</span></div>
+    <div class="sf"><span class="sf-n">temperature</span><span class="sf-t">float</span><span class="sf-r">0.0 &le; value &le; 2.0, default 0.7</span><span class="sf-req opt">optional</span></div>
+    <div class="sf"><span class="sf-n">max_tokens</span><span class="sf-t">int</span><span class="sf-r">1 &le; value &le; 128000, must be None when streaming</span><span class="sf-req opt">optional</span></div>
+    <div class="sf"><span class="sf-n">stream</span><span class="sf-t">bool</span><span class="sf-r">Default False</span><span class="sf-req opt">optional</span></div>
+    <div class="sf"><span class="sf-n">metadata</span><span class="sf-t">dict[str, str]</span><span class="sf-r">Arbitrary key-value tags for tracing</span><span class="sf-req opt">optional</span></div>
+  </div>
+
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">pydantic_ai.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field, field_validator, model_validator, ConfigDict
+<span class="kw">from</span> typing <span class="kw">import</span> Literal, Optional, Annotated
+<span class="kw">from</span> enum <span class="kw">import</span> Enum
+
+<span class="kw">class</span> <span class="cl">ModelChoice</span>(<span class="bi">str</span>, Enum):
+    GPT4O      = <span class="st">"gpt-4o"</span>
+    CLAUDE     = <span class="st">"claude-sonnet-4-6"</span>
+    CLAUDE_OPS = <span class="st">"claude-opus-4-6"</span>
+
+<span class="kw">class</span> <span class="cl">Message</span>(BaseModel):
+    role:    Literal[<span class="st">"user"</span>, <span class="st">"assistant"</span>, <span class="st">"system"</span>]
+    content: Annotated[<span class="bi">str</span>, Field(min_length=<span class="nu">1</span>, max_length=<span class="nu">200_000</span>)]
+
+<span class="kw">class</span> <span class="cl">LLMRequest</span>(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=<span class="kw">True</span>, use_enum_values=<span class="kw">True</span>)
+
+    model:       <span class="cl">ModelChoice</span>
+    messages:    Annotated[list[<span class="cl">Message</span>], Field(min_length=<span class="nu">1</span>)]
+    temperature: <span class="bi">float</span>         = Field(default=<span class="nu">0.7</span>, ge=<span class="nu">0.0</span>, le=<span class="nu">2.0</span>)
+    max_tokens:  Optional[<span class="bi">int</span>] = Field(default=<span class="kw">None</span>, ge=<span class="nu">1</span>, le=<span class="nu">128_000</span>)
+    stream:      <span class="bi">bool</span>          = <span class="kw">False</span>
+    metadata:    dict[<span class="bi">str</span>, <span class="bi">str</span>] = Field(default_factory=dict)
+
+    <span class="cm"># @field_validator: runs on a single field after type coercion</span>
+    <span class="de">@field_validator</span>(<span class="st">"messages"</span>)
+    <span class="de">@classmethod</span>
+    <span class="kw">def</span> <span class="fn">last_must_be_user</span>(cls, v: list[<span class="cl">Message</span>]) -> list[<span class="cl">Message</span>]:
+        <span class="kw">if</span> v[-<span class="nu">1</span>].role != <span class="st">"user"</span>:
+            <span class="kw">raise</span> <span class="bi">ValueError</span>(<span class="st">"Last message must have role='user'"</span>)
+        <span class="kw">return</span> v
+
+    <span class="cm"># @model_validator(mode="after"): runs after ALL fields validated; cross-field rules</span>
+    <span class="de">@model_validator</span>(mode=<span class="st">"after"</span>)
+    <span class="kw">def</span> <span class="fn">stream_and_max_tokens</span>(<span class="va">self</span>) -> <span class="st">"LLMRequest"</span>:
+        <span class="kw">if</span> <span class="va">self</span>.stream <span class="kw">and</span> <span class="va">self</span>.max_tokens <span class="kw">is not None</span>:
+            <span class="kw">raise</span> <span class="bi">ValueError</span>(<span class="st">"max_tokens must be None when streaming"</span>)
+        <span class="kw">return</span> <span class="va">self</span>
+
+<span class="cm"># Usage</span>
+req = <span class="cl">LLMRequest</span>(
+    model=<span class="st">"claude-sonnet-4-6"</span>,
+    messages=[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"Explain RAG"</span>}],
+    temperature=<span class="nu">0.9</span>
+)
+payload = req.model_dump_json(indent=<span class="nu">2</span>)   <span class="cm"># v2 API — not .json()</span>
+raw     = req.model_dump()                   <span class="cm"># dict — not .dict()</span></pre>
+  </div>
+  <div class="callout c-warn">
+    <span class="c-icon">&#9888;&#65039;</span>
+    <div class="c-body"><strong>Pydantic v1 vs v2 &mdash; breaking changes:</strong> <code>@validator</code> &rarr; <code>@field_validator</code> &bull; <code>.dict()</code> &rarr; <code>.model_dump()</code> &bull; <code>.json()</code> &rarr; <code>.model_dump_json()</code>. Most tutorials on the internet are v1. Always check <code>pydantic.__version__</code> and read the v2 migration guide.</div>
+  </div>
+</section>
+
+<!-- S8: ENTERPRISE PATTERNS -->
+<section class="lesson" id="s8">
+  <div class="l-eye"><span class="num">08</span> Enterprise Patterns</div>
+  <h2 class="l-title">Enterprise Python &mdash; <em>Logging, Config, Exceptions</em></h2>
+  <p class="l-intro">The gap between a working prototype and production code is almost entirely these patterns. Structured logging, environment-based config, and domain exceptions are table stakes at any serious AI company.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">enterprise_patterns.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="cm"># 1. Structured JSON logging — parseable by DataDog, CloudWatch, Loki</span>
+<span class="kw">import</span> logging, json, sys
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime, timezone
+
+<span class="kw">class</span> <span class="cl">JSONFormatter</span>(logging.Formatter):
+    <span class="kw">def</span> <span class="fn">format</span>(<span class="va">self</span>, record: logging.LogRecord) -> <span class="bi">str</span>:
+        <span class="kw">return</span> json.dumps({
+            <span class="st">"ts"</span>:    datetime.now(timezone.utc).isoformat(),
+            <span class="st">"level"</span>: record.levelname,
+            <span class="st">"msg"</span>:   record.getMessage(),
+            <span class="st">"mod"</span>:   record.module,
+            <span class="st">"line"</span>:  record.lineno,
+        })
+
+<span class="kw">def</span> <span class="fn">setup_logging</span>(level: <span class="bi">str</span> = <span class="st">"INFO"</span>) -> <span class="kw">None</span>:
+    h = logging.StreamHandler(sys.stdout)
+    h.setFormatter(<span class="cl">JSONFormatter</span>())
+    logging.basicConfig(level=level, handlers=[h], force=<span class="kw">True</span>)
+
+<span class="cm"># 2. Config management with Pydantic Settings (reads from .env + env vars)</span>
+<span class="kw">from</span> pydantic_settings <span class="kw">import</span> BaseSettings
+<span class="kw">from</span> pydantic <span class="kw">import</span> Field
+<span class="kw">from</span> functools <span class="kw">import</span> lru_cache
+
+<span class="kw">class</span> <span class="cl">Settings</span>(BaseSettings):
+    openai_api_key:    <span class="bi">str</span> = Field(alias=<span class="st">"OPENAI_API_KEY"</span>)
+    anthropic_api_key: <span class="bi">str</span> = Field(alias=<span class="st">"ANTHROPIC_API_KEY"</span>)
+    database_url:      <span class="bi">str</span> = Field(alias=<span class="st">"DATABASE_URL"</span>)
+    redis_url:         <span class="bi">str</span> = <span class="st">"redis://localhost:6379"</span>
+    max_concurrent:    <span class="bi">int</span> = <span class="nu">10</span>
+    model_config = {<span class="st">"env_file"</span>: <span class="st">".env"</span>}
+
+<span class="de">@lru_cache</span>()                   <span class="cm"># load once, reuse everywhere</span>
+<span class="kw">def</span> <span class="fn">get_settings</span>() -> <span class="cl">Settings</span>:
+    <span class="kw">return</span> <span class="cl">Settings</span>()          <span class="cm"># NEVER hardcode credentials</span>
+
+<span class="cm"># 3. Custom domain exceptions — granular error handling</span>
+<span class="kw">class</span> <span class="cl">AIError</span>(<span class="bi">Exception</span>): <span class="st">'''Base for all AI pipeline errors.'''</span>
+
+<span class="kw">class</span> <span class="cl">TokenLimitExceeded</span>(<span class="cl">AIError</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="va">self</span>, count: <span class="bi">int</span>, limit: <span class="bi">int</span>):
+        <span class="va">self</span>.count, <span class="va">self</span>.limit = count, limit
+        <span class="bi">super</span>().__init__(<span class="st">f"Prompt has {count} tokens; limit is {limit}"</span>)
+
+<span class="kw">class</span> <span class="cl">ModelUnavailableError</span>(<span class="cl">AIError</span>): <span class="kw">pass</span>
+
+<span class="kw">def</span> <span class="fn">safe_complete</span>(prompt: <span class="bi">str</span>) -> <span class="bi">str</span> | <span class="kw">None</span>:
+    <span class="kw">try</span>:
+        <span class="kw">return</span> llm.complete(prompt)
+    <span class="kw">except</span> <span class="cl">TokenLimitExceeded</span> <span class="kw">as</span> e:
+        logging.warning(<span class="st">f"Trimming prompt from {e.count} to {e.limit} tokens"</span>)
+        <span class="kw">return</span> llm.complete(trim_to_limit(prompt, e.limit))
+    <span class="kw">except</span> <span class="cl">ModelUnavailableError</span>:
+        <span class="kw">return</span> fallback_llm.complete(prompt)   <span class="cm"># graceful degradation</span>
+    <span class="kw">except</span> <span class="bi">Exception</span> <span class="kw">as</span> e:
+        logging.error(<span class="st">f"Unexpected error: {e}"</span>, exc_info=<span class="kw">True</span>)
+        <span class="kw">return None</span></pre>
+  </div>
+</section>
+
+<!-- S9: TESTING -->
+<section class="lesson" id="s9">
+  <div class="l-eye"><span class="num">09</span> Testing</div>
+  <h2 class="l-title">Testing AI Code &mdash; <em>The Right Way</em></h2>
+  <p class="l-intro">Untested AI code is a liability. Testing LLM-dependent code is tricky &mdash; you can't call the real API in CI. The answer: mock dependencies, test pure logic in isolation, and keep I/O-heavy code thin.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">test_pipeline.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">import</span> pytest
+<span class="kw">from</span> unittest.mock <span class="kw">import</span> MagicMock, AsyncMock
+<span class="kw">from</span> my_rag.chunker  <span class="kw">import</span> chunk_document
+<span class="kw">from</span> my_rag.pipeline <span class="kw">import</span> RAGPipeline
+
+<span class="cm"># Pure functions: no mocking needed — just call and assert</span>
+<span class="kw">class</span> <span class="cl">TestChunker</span>:
+    <span class="kw">def</span> <span class="fn">test_chunks_long_doc</span>(<span class="va">self</span>):
+        text = <span class="st">" "</span>.join([<span class="st">"word"</span>] * <span class="nu">600</span>)
+        <span class="kw">assert</span> <span class="bi">len</span>(chunk_document(text, chunk_size=<span class="nu">512</span>, overlap=<span class="nu">50</span>)) == <span class="nu">2</span>
+
+    <span class="kw">def</span> <span class="fn">test_empty_input_returns_empty</span>(<span class="va">self</span>):
+        <span class="kw">assert</span> chunk_document(<span class="st">""</span>) == []
+
+    <span class="kw">def</span> <span class="fn">test_overlap_shared_tokens</span>(<span class="va">self</span>):
+        text   = <span class="st">" "</span>.join(<span class="bi">str</span>(i) <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nu">100</span>))
+        chunks = chunk_document(text, chunk_size=<span class="nu">50</span>, overlap=<span class="nu">10</span>)
+        <span class="kw">assert</span> chunks[<span class="nu">0</span>].split()[-<span class="nu">10</span>:] == chunks[<span class="nu">1</span>].split()[:<span class="nu">10</span>]
+
+<span class="cm"># Fixtures — shared mock objects</span>
+<span class="de">@pytest.fixture</span>
+<span class="kw">def</span> <span class="fn">mock_llm</span>():
+    m = MagicMock()
+    m.messages.create.return_value = MagicMock(content=[MagicMock(text=<span class="st">"Mock answer"</span>)])
+    <span class="kw">return</span> m
+
+<span class="de">@pytest.fixture</span>
+<span class="kw">def</span> <span class="fn">mock_db</span>():
+    db = MagicMock()
+    db.search.return_value = [
+        {<span class="st">"text"</span>: <span class="st">"Context chunk A"</span>, <span class="st">"score"</span>: <span class="nu">0.92</span>},
+        {<span class="st">"text"</span>: <span class="st">"Context chunk B"</span>, <span class="st">"score"</span>: <span class="nu">0.87</span>},
+    ]
+    <span class="kw">return</span> db
+
+<span class="cm"># Integration test: verify the pipeline injects retrieved context into the prompt</span>
+<span class="kw">class</span> <span class="cl">TestRAGPipeline</span>:
+    <span class="kw">def</span> <span class="fn">test_context_injected</span>(<span class="va">self</span>, mock_llm, mock_db):
+        pipeline  = <span class="cl">RAGPipeline</span>(llm=mock_llm, db=mock_db)
+        answer    = pipeline.answer(<span class="st">"What is RAG?"</span>)
+        prompt    = mock_llm.messages.create.call_args.kwargs[<span class="st">"messages"</span>][<span class="nu">0</span>][<span class="st">"content"</span>]
+        <span class="kw">assert</span> <span class="st">"Context chunk A"</span> <span class="kw">in</span> prompt
+        <span class="kw">assert</span> answer == <span class="st">"Mock answer"</span>
+
+    <span class="de">@pytest.mark.asyncio</span>
+    <span class="kw">async def</span> <span class="fn">test_async_pipeline</span>(<span class="va">self</span>, mock_db):
+        mock_async = AsyncMock()   <span class="cm"># AsyncMock, not MagicMock — supports await</span>
+        mock_async.messages.create.return_value = MagicMock(
+            content=[MagicMock(text=<span class="st">"Async answer"</span>)]
+        )
+        pipeline = <span class="cl">RAGPipeline</span>(llm=mock_async, db=mock_db)
+        result   = <span class="kw">await</span> pipeline.async_answer(<span class="st">"test"</span>)
+        <span class="kw">assert</span> result == <span class="st">"Async answer"</span></pre>
+  </div>
+</section>
+
+<!-- S10: PROFILING -->
+<section class="lesson" id="s10">
+  <div class="l-eye"><span class="num">10</span> Profiling &amp; Optimisation</div>
+  <h2 class="l-title">Find Bottlenecks, <em>Ship Faster Code</em></h2>
+  <p class="l-intro">Don't optimise blindly. Profile first, fix the one thing that matters. In AI systems, 80% of latency comes from redundant LLM calls, missing batching, or synchronous code that should be async.</p>
+  <div class="cb">
+    <div class="cb-head"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cb-fname">profiling.py</span><span class="cb-lang">Python</span></div>
+    <pre><span class="kw">import</span> cProfile, pstats, io, timeit
+
+<span class="cm"># cProfile — find slowest functions with call counts</span>
+prof = cProfile.Profile()
+prof.enable()
+run_rag_pipeline(queries)
+prof.disable()
+s = io.StringIO()
+pstats.Stats(prof, stream=s).sort_stats(<span class="st">"cumulative"</span>).print_stats(<span class="nu">20</span>)
+<span class="bi">print</span>(s.getvalue())   <span class="cm"># top 20 functions by total time</span>
+
+<span class="cm"># timeit — benchmark two approaches</span>
+t_list = timeit.timeit(<span class="kw">lambda</span>: <span class="bi">sum</span>([x*x <span class="kw">for</span> x <span class="kw">in</span> <span class="bi">range</span>(<span class="nu">1_000_000</span>)]), number=<span class="nu">5</span>)
+t_gen  = timeit.timeit(<span class="kw">lambda</span>: <span class="bi">sum</span>(x*x <span class="kw">for</span> x <span class="kw">in</span> <span class="bi">range</span>(<span class="nu">1_000_000</span>)),  number=<span class="nu">5</span>)
+<span class="bi">print</span>(<span class="st">f"List comprehension: {t_list:.2f}s  Generator: {t_gen:.2f}s"</span>)
+
+<span class="cm"># ── High-impact AI optimisations ────────────────────────────────</span>
+
+<span class="cm"># 1. Batch API calls — 100x faster and cheaper</span>
+<span class="cm"># Bad: 1000 individual round-trips</span>
+embeddings = [embed(t) <span class="kw">for</span> t <span class="kw">in</span> texts]
+
+<span class="cm"># Good: one batched call</span>
+embeddings = embed_batch(texts, batch_size=<span class="nu">100</span>)
+
+<span class="cm"># 2. Cache model loading — models are slow to initialise</span>
+<span class="kw">from</span> functools <span class="kw">import</span> lru_cache
+<span class="de">@lru_cache</span>(maxsize=<span class="nu">1</span>)
+<span class="kw">def</span> <span class="fn">get_embed_model</span>(): <span class="kw">return</span> SentenceTransformer(<span class="st">"all-MiniLM-L6-v2"</span>)
+
+<span class="cm"># 3. orjson — 10x faster JSON parsing for LLM response handling</span>
+<span class="kw">import</span> orjson
+data = orjson.loads(response_bytes)   <span class="cm"># vs json.loads — 3-10x faster</span>
+
+<span class="cm"># 4. Set for O(1) deduplication vs O(n) list</span>
+seen = {doc[<span class="st">"id"</span>] <span class="kw">for</span> doc <span class="kw">in</span> processed}
+<span class="kw">if</span> new_doc[<span class="st">"id"</span>] <span class="kw">not in</span> seen:       <span class="cm"># O(1) hash lookup</span>
+    process(new_doc)</pre>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="lesson" id="projects">
+  <div class="l-eye"><span class="num">11</span> Module Projects</div>
+  <h2 class="l-title">Build It &mdash; <em>Four Real Projects</em></h2>
+  <p class="l-intro">Each project applies the concepts from this module directly. Complete them in order &mdash; they build on each other and together form the production Python foundation everything else in this course depends on.</p>
+
+  <div class="proj-card">
+    <div class="proj-head"><span class="proj-badge">PROJECT 01</span><span class="proj-name">Async Document Processor</span></div>
+    <div class="proj-body">
+      <p class="proj-desc">A concurrent document processing pipeline that reads a corpus of PDFs, extracts text, cleans it, and calls the Anthropic API to generate summaries &mdash; all concurrently with rate limiting and retry logic.</p>
+      <ul class="feats">
+        <li>asyncio + aiofiles: 20x faster than sequential processing</li>
+        <li>Semaphore-based rate limiting: never exceed provider limits</li>
+        <li>Generator pipeline: processes a 10GB corpus in constant memory</li>
+        <li>Pydantic models for input validation and structured output schema</li>
+        <li>JSON logging with per-document correlation IDs for traceability</li>
+        <li>Full pytest suite with AsyncMock for the Anthropic client</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="proj-card">
+    <div class="proj-head"><span class="proj-badge">PROJECT 02</span><span class="proj-name">Production Retry Framework</span></div>
+    <div class="proj-body">
+      <p class="proj-desc">A configurable retry library for AI API calls &mdash; more capable than tenacity and built entirely from the decorator and closure patterns in this module. Published as a local pip package.</p>
+      <ul class="feats">
+        <li>Exponential backoff, jitter, and fixed-interval strategies</li>
+        <li>Per-exception-type retry policies (retry on 429, not on 400)</li>
+        <li>Circuit breaker: stop hammering a failing service automatically</li>
+        <li>Async and sync variants behind the same <code>@retry</code> decorator interface</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="proj-card">
+    <div class="proj-head"><span class="proj-badge">PROJECT 03</span><span class="proj-name">Config-Driven Workflow Engine</span></div>
+    <div class="proj-body">
+      <p class="proj-desc">A YAML-configured AI workflow engine where pipelines are defined in config files &mdash; no code changes to add steps. This mirrors how Prefect, Airflow, and LangGraph work under the hood.</p>
+      <ul class="feats">
+        <li>YAML/JSON config validated with Pydantic Settings at startup</li>
+        <li>Step registry via decorators: <code>@register_step("embed")</code></li>
+        <li>Context object passed between pipeline steps</li>
+        <li>CLI: <code>python run.py --config pipeline.yaml --input docs/</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="proj-card">
+    <div class="proj-head"><span class="proj-badge">PROJECT 04</span><span class="proj-name">Parallel Multi-Provider API Service</span></div>
+    <div class="proj-body">
+      <p class="proj-desc">A service that takes a list of tasks (summarise, classify, extract) and executes them against multiple LLM providers in parallel, with graceful fallback when one provider is unavailable.</p>
+      <ul class="feats">
+        <li>ProcessPoolExecutor for CPU preprocessing + asyncio for API I/O</li>
+        <li>BaseLLM abstraction with OpenAI and Anthropic implementations</li>
+        <li>Health-check loop with automatic provider failover</li>
+        <li>Real-time progress via async generator + cost tracking via Pydantic</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW -->
+<section class="interview" id="interview">
+  <div class="int-lbl">MODULE 01 &middot; INTERVIEW PREP</div>
+  <div class="int-title">14 Real Interview Questions</div>
+  <div class="int-sub">From actual AI company interviews &middot; Click to reveal answers</div>
+  <div id="qContainer"></div>
+</section>
+
+<div class="mod-footer">
+  <span class="mf-badge">Module 01 of 12</span>
+  <div class="mf-nav">
+    <a href="module-00-cs-foundations.html" class="mf-btn mf-prev">&larr; Module 00: CS Foundations</a>
+    <a href="#" class="mf-btn mf-next">Module 02: Backend &amp; APIs &rarr;</a>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+const qs = [
+  {n:"01",d:"easy",q:"What is the difference between a generator and a list comprehension?",
+  a:`<p>A list comprehension <code>[x**2 for x in range(100)]</code> evaluates <strong>eagerly</strong> — it builds the entire list in memory immediately. A generator expression <code>(x**2 for x in range(100))</code> is <strong>lazy</strong> — it produces values one at a time, only when requested via <code>next()</code> or a for loop.</p><p><strong>Memory:</strong> A list of 1M integers occupies ~8MB. A generator producing the same values uses ~100 bytes — it stores only current state and position. <strong>In AI engineering:</strong> any pipeline reading a large corpus, streaming API responses, or processing more data than fits in RAM must use generators. PyTorch DataLoader, HuggingFace datasets streaming, and every document loader in LangChain use this pattern.</p>`},
+
+  {n:"02",d:"easy",q:"What does @functools.wraps do and why must you always include it in decorators?",
+  a:`<p>Without <code>@functools.wraps(func)</code>, your wrapper function replaces the decorated function's <code>__name__</code>, <code>__doc__</code>, <code>__module__</code>, and signature with its own. This breaks introspection, documentation, and logging.</p><p><strong>Concrete harm:</strong> <code>call_model.__name__</code> becomes <code>"wrapper"</code> instead of <code>"call_model"</code>. FastAPI uses function names for route identification — without wraps, all decorated routes share the same name and break. Stack traces become useless. <code>help()</code> shows wrapper docs. Always add it as the first decorator inside your outer wrapper function. It is one line; there is no excuse to omit it.</p>`},
+
+  {n:"03",d:"medium",q:"Explain Python's GIL. How does it affect threading and multiprocessing for AI workloads?",
+  a:`<p>The GIL (Global Interpreter Lock) is a mutex that allows only one thread to execute Python bytecode at a time in CPython. This means threads cannot achieve true CPU parallelism.</p><p><strong>I/O-bound tasks</strong> (API calls, DB queries): threads work fine — while one thread waits for I/O, the GIL releases and another thread runs. asyncio is even better: zero thread overhead, cooperative multitasking. <strong>CPU-bound tasks</strong> (tokenisation, numpy, preprocessing): threads are useless for parallelism. Use <code>multiprocessing</code> — each process has its own interpreter and GIL. Rule: LLM API calls → asyncio. Tokenising 10M documents → ProcessPoolExecutor. Note: NumPy and PyTorch release the GIL internally during computation, so they are an exception.</p>`},
+
+  {n:"04",d:"medium",q:"What is the difference between asyncio.gather and asyncio.wait?",
+  a:`<p><code>asyncio.gather(*coros)</code>: runs all coroutines concurrently, returns results in input order, raises the first exception immediately (or collects all with <code>return_exceptions=True</code>). Simplest API.</p><p><code>asyncio.wait(tasks, return_when=...)</code>: more control. Returns two sets: <code>done</code> and <code>pending</code>. Supports <code>FIRST_COMPLETED</code>, <code>FIRST_EXCEPTION</code>, <code>ALL_COMPLETED</code>. Use it when you want to process results as they arrive or cancel remaining tasks once the first succeeds. <strong>In practice:</strong> use <code>gather</code> for batching LLM API calls where you want all results. Use <code>wait(return_when=FIRST_COMPLETED)</code> for "race" patterns — send the same query to multiple models and take the fastest response.</p>`},
+
+  {n:"05",d:"medium",q:"How does Python's asyncio event loop actually work? What happens when you call await?",
+  a:`<p>The event loop is a single-threaded scheduler. It runs coroutines until they hit <code>await</code>, at which point they <strong>voluntarily suspend</strong> and yield control. The loop then picks the next ready coroutine to run. When the awaited operation completes (OS signals the socket), the loop resumes the suspended coroutine.</p><p><strong>Critical insight:</strong> asyncio is concurrent, not parallel. There is only one thread. CPU-heavy code <em>blocks the entire event loop</em> even inside async functions — no other coroutines can run while it executes. The fix: run blocking code in a thread pool: <code>await asyncio.get_event_loop().run_in_executor(None, cpu_fn)</code>. This releases the event loop to serve other coroutines while the CPU work happens in a thread.</p>`},
+
+  {n:"06",d:"medium",q:"What is the difference between @field_validator and @model_validator in Pydantic v2?",
+  a:`<p><code>@field_validator("field_name")</code> runs on a <strong>single field</strong> after its type coercion. Use it for single-field rules: format checking, value cleaning, range validation. It is a classmethod receiving the value as the second argument.</p><p><code>@model_validator(mode="after")</code> runs after <strong>all fields</strong> are validated, receiving <code>self</code> (the full model instance). Use it for <strong>cross-field validation</strong> — rules involving multiple fields simultaneously. Example: <code>if self.stream and self.max_tokens is not None: raise ValueError()</code>. <code>mode="before"</code> receives the raw input dict before any parsing, useful for pre-processing or renaming input keys before Pydantic sees them.</p>`},
+
+  {n:"07",d:"medium",q:"How would you design a system to call an LLM for 10,000 documents safely and efficiently?",
+  a:`<p><strong>Pattern: asyncio + Semaphore + retry decorator + return_exceptions.</strong></p><p>1. Write <code>async def process(doc)</code> using the async SDK. 2. Create <code>asyncio.Semaphore(20)</code> to cap concurrent API calls at 20 (tune to provider limits). 3. Wrap each call with a <code>@retry</code> decorator that handles 429 and 503 with exponential backoff. 4. Use <code>asyncio.gather(*tasks, return_exceptions=True)</code> so one failed document doesn't cancel the other 9,999. 5. Collect failures and re-queue them in a second pass. With this pattern, 10,000 documents that take 2 seconds each processes in ~17 minutes instead of 5.5 hours. Cost and speed: batching also reduces per-call overhead — batch embedding calls wherever possible.</p>`},
+
+  {n:"08",d:"hard",q:"Explain Python's memory model and garbage collection. When do memory leaks occur?",
+  a:`<p>Python uses <strong>reference counting</strong> as its primary GC: each object tracks how many names reference it. When count drops to zero, the object is freed immediately and deterministically. A supplementary <strong>cyclic collector</strong> handles reference cycles (A → B → A), which reference counting cannot resolve alone.</p><p><strong>Leaks occur when:</strong> (1) Long-lived containers accumulate items without bounds — module-level dicts, unbounded caches. Use <code>lru_cache(maxsize=N)</code>, not unbounded dicts. (2) Closures capture large objects unexpectedly — the inner function holds a reference to the entire outer scope. (3) Event handlers that register callbacks but never deregister them (common in GUI and async code). (4) C extension bugs. <strong>In AI:</strong> the #1 leak is accumulating embeddings, responses, or documents in a module-level list across requests in a long-running server process.</p>`},
+
+  {n:"09",d:"hard",q:"What is the difference between threading.Lock, asyncio.Lock, and multiprocessing.Lock?",
+  a:`<p><strong>threading.Lock:</strong> OS-level mutex protecting shared state between OS threads in the same process. <code>lock.acquire()</code> blocks the calling thread (not the process) until acquired. Use to protect a shared dict or counter in a threaded server.</p><p><strong>asyncio.Lock:</strong> Cooperative lock for coroutines in the same event loop. <code>await lock.acquire()</code> suspends the coroutine without blocking the thread — the event loop runs other coroutines while waiting. Never use threading.Lock in async code; it will deadlock.</p><p><strong>multiprocessing.Lock:</strong> Inter-process lock via OS semaphores. Shared across separate processes with their own memory spaces. Much heavier than the others. <strong>In AI production:</strong> avoid shared locks across processes — use message queues (Redis, Kafka) instead. They are safer, more observable, and don't deadlock.</p>`},
+
+  {n:"10",d:"hard",q:"Design an async rate-limit decorator that allows N calls per second and queues excess calls.",
+  a:`<p>The correct approach is a <strong>token bucket</strong> using asyncio.Semaphore with periodic refill:</p><p><code>def async_rate_limit(rps): sem = asyncio.Semaphore(rps); async def refill(): await asyncio.sleep(1); [sem.release() for _ in range(rps - sem._value)] if sem._value < rps else None; def deco(fn): @wraps(fn) async def w(*a,**k): await sem.acquire(); asyncio.create_task(refill()); return await fn(*a,**k); return w; return deco</code></p><p>Key insight: Semaphore caps concurrency. Each call acquires a permit and schedules a task to release it after 1 second, creating a sliding window. <strong>Production preference:</strong> use the <code>aiolimiter</code> library which implements the leaky bucket algorithm correctly with proper clock handling. Build your own for understanding; use a library in production.</p>`},
+
+  {n:"11",d:"easy",q:"What is the difference between __repr__ and __str__? When does each get called?",
+  a:`<p><code>__str__</code>: human-readable display. Called by <code>str(obj)</code>, <code>print(obj)</code>, and f-strings with <code>{obj}</code>. Meant for end users.</p><p><code>__repr__</code>: unambiguous developer representation. Called by <code>repr(obj)</code> and the interactive REPL. Should ideally be valid Python that recreates the object: <code>Embedding(model='ada-002', dims=1536)</code>. If <code>__str__</code> is missing, Python falls back to <code>__repr__</code>. <strong>Always implement <code>__repr__</code></strong> for any non-trivial class — it is critical for debugging. Never implement <code>__str__</code> without also implementing <code>__repr__</code>. In AI: <code>repr(Chunk(doc_id='abc', idx=2))</code> in logs is far more useful than a raw memory address.</p>`},
+
+  {n:"12",d:"easy",q:"When would you use a dataclass vs a Pydantic model vs a regular class?",
+  a:`<p><strong>dataclass:</strong> auto-generates <code>__init__</code>, <code>__repr__</code>, <code>__eq__</code> from annotations. Lightweight, no runtime validation. Use for internal data containers that don't cross API boundaries.</p><p><strong>Pydantic BaseModel:</strong> dataclass + runtime validation + JSON serialisation + custom validators. Use whenever data crosses a boundary: API request/response, LLM output parsing, config files, agent state. Pydantic's error messages are excellent for debugging malformed inputs.</p><p><strong>Regular class:</strong> when you have significant behaviour (methods), not primarily a data container, or need custom <code>__init__</code> logic Pydantic can't express. <strong>Rule:</strong> API boundary → Pydantic. Internal data transfer object → dataclass. Stateful object with behaviour → class.</p>`},
+
+  {n:"13",d:"hard",q:"What are the main pitfalls when testing async Python code with pytest?",
+  a:`<p><strong>1. Using MagicMock for async methods.</strong> MagicMock is not awaitable. <code>await mock_client.create()</code> raises <code>TypeError</code>. Use <code>AsyncMock</code> from <code>unittest.mock</code> for any coroutine.</p><p><strong>2. Event loop lifecycle.</strong> Each pytest test creates a new event loop by default. Shared async resources (DB pools, HTTP sessions) break across tests. Fix: use <code>pytest-anyio</code> with session-scoped fixtures or configure <code>asyncio_mode = "auto"</code> in pytest.ini.</p><p><strong>3. Not awaiting coroutines in fixtures.</strong> Async fixtures must also be <code>async def</code> and marked with <code>@pytest_asyncio.fixture</code>.</p><p><strong>4. Testing time-dependent code.</strong> <code>asyncio.sleep()</code> makes tests slow. Use <code>freezegun</code> or override the event loop's clock to advance time without actually waiting.</p>`},
+
+  {n:"14",d:"hard",q:"What is Python's descriptor protocol? Give a real example from AI frameworks.",
+  a:`<p>A descriptor is any object implementing <code>__get__</code>, <code>__set__</code>, or <code>__delete__</code>. When you access a class attribute that is a descriptor, Python calls its <code>__get__</code> instead of returning the raw object.</p><p><strong>Real example — PyTorch nn.Module:</strong> when you do <code>self.linear = nn.Linear(128, 64)</code> inside a Module, the <code>__set__</code> descriptor method intercepts the assignment and registers the layer in the module's internal <code>_modules</code> dict. This is exactly how <code>model.parameters()</code> recursively discovers all trainable weights — without you explicitly registering them. Pydantic v2 uses descriptors extensively for field access and validation. Understanding descriptors demystifies the "magic" in every major Python framework: SQLAlchemy, Django ORM, FastAPI dependency injection — they all rely on this protocol.</p>`},
+];
+
+const container = document.getElementById('qContainer');
+qs.forEach(item => {
+  const dc = item.d === 'easy' ? 'd-easy' : item.d === 'medium' ? 'd-med' : 'd-hard';
+  const b  = document.createElement('div');
+  b.className = 'q-block';
+  b.innerHTML = `
+    <div class="q-row" onclick="toggleQ(this)">
+      <span class="q-num">Q${item.n}</span>
+      <span class="q-text">${item.q}</span>
+      <span class="q-diff ${dc}">${item.d}</span>
+      <span class="q-chev">&#9658;</span>
+    </div>
+    <div class="q-ans">${item.a}</div>`;
+  container.appendChild(b);
+});
+
+function toggleQ(row) {
+  row.classList.toggle('open');
+  row.nextElementSibling.classList.toggle('show');
+}
+
+// Scroll-spy progress tracking
+const sections = document.querySelectorAll('.lesson, .interview');
+const links    = document.querySelectorAll('.sb-link');
+const fill     = document.getElementById('fill');
+const pct      = document.getElementById('pct');
+const visited  = new Set();
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    visited.add(e.target.id);
+    links.forEach(l => l.classList.remove('active'));
+    const a = document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+    if (a) a.classList.add('active');
+    const p = Math.round((visited.size / 12) * 100);
+    fill.style.width = p + '%';
+    pct.textContent  = p + '%';
+  });
+}, { threshold: 0.25 });
+
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
